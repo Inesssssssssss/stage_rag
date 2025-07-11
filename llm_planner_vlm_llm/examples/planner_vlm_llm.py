@@ -47,7 +47,7 @@ for i, d in enumerate(documents):
 response = ollama.generate(
     model='llama3.2-vision',
     prompt= 'You are a robot assistant. Please analyze the object in the image. If you see a robot arm in the picture, ignore it and focus on the object. Be concise.',
-    images= ['../Images/53.jpg']
+    images= ['../Images/55.jpg']
 )
 im_desc = response.get("response", "")
 
@@ -74,7 +74,7 @@ Explain **simply and concisely** what you would do to complete this task, step b
 The goal is to produce a draft plan of meaningful, human-level actions (e.g., "Grasp screwdriver", "Put pen in Box 1", etc.).
 
 Keep your explanation brief and focused. Do not include implementation details or low-level actions."""
-
+start_time = time.time()
 response = ollama.generate(
     model='qwen3:4b',
     prompt=prompt

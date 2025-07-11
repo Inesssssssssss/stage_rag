@@ -1,0 +1,33 @@
+{
+  "grasp_object": 
+    {
+      "description": "Grasp the specified object at a specific subpart.",
+      "arguments": {
+        "object": ["mug", "philipps_screwdriver", "scissors", "banana"],
+        "subpart": {
+          "mug": ["handle", "body"],
+          "philipps_screwdriver": ["handle", "shaft"],
+          "scissors": ["handle", "blade"],
+          "banana": ["body"]
+        }
+      },
+      "example": "grasp_object('mug', 'body')"
+      },
+
+   "handover": {
+      "description": "Go to the pose for handing over an object to a human and open gripper.",
+      "arguments": {
+        "direction": ["left", "right", "front"]
+      },
+      "example": "handover('right')"
+      },
+
+   "drop_above": {
+      "name": "drop_above",
+      "description": "Go to the pose for dropping an object and open gripper.",
+      "arguments": {
+        "location": ["red_tray", "blue_tray"]
+      },
+      "example": "drop_above('red_tray')"
+      }
+}

@@ -45,7 +45,7 @@ for i, d in enumerate(documents):
 response = ollama.generate(
     model='llama3.2-vision',
     prompt= 'You are a robot assistant. Please analyze the object in the image. If you see a robot arm in the picture, ignore it and focus on the object. Be concise.',
-    images= ['../Images/50.jpg']
+    images= ['../Images/55.jpg']
 )
 image_desc = response.get("response", "")
 # Initialize the task planner

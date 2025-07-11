@@ -1,0 +1,11 @@
+--2025-07-09 14:32:04--  https://images.unsplash.com/4/cuba-cup.jpg?q=80
+Resolving images.unsplash.com (images.unsplash.com)... 151.101.62.208, 2a04:4e42:f::720
+Connecting to images.unsplash.com (images.unsplash.com)|151.101.62.208|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 149621 (146K) [image/jpeg]
+Saving to: 'cuba-cup.jpg?q=80'
+
+cuba-cup.jpg?q=80                              0%[                                                                                             ]       0  --.-KB/s               cuba-cup.jpg?q=80                            100%[============================================================================================>] 146.11K  --.-KB/s    in 0.02s   
+
+2025-07-09 14:32:04 (6.56 MB/s) - 'cuba-cup.jpg?q=80' saved [149621/149621]
+

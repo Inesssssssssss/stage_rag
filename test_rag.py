@@ -11,7 +11,7 @@ documents = [
 ]
 
 client = chromadb.Client()
-collection = client.create_collection(name="docs")
+collection = client.create_collection(name="docs", metadata={"hnsw:space": "cosine"})
 
 # store each document in a vector embedding database
 for i, d in enumerate(documents):
@@ -24,8 +24,7 @@ for i, d in enumerate(documents):
   )
 
 # an example input
-#input = "What animals are llamas related to?"
-input = "Where is Paris?"
+input = "What animals are llamas related to?"
 # generate an embedding for the input and retrieve the most relevant doc
 response = ollama.embeddings(
       prompt=input,
@@ -33,11 +32,28 @@ response = ollama.embeddings(
     )
 results = collection.query(
   query_embeddings=[response["embedding"]],
-  n_results=2
+  n_results=10
+  #where={"distances": {"$lte":350} }
 )
 data = results['documents'][0]
-print(f" data : {results['documents'][0]}")
+print(f" data : {results}")
 
+threshold = 0.2  # Ajuste selon besoin
+relevant_docs = []
+"""
+for doc, emb in zip(results["documents"][0], results["embeddings"][0]):
+    similarity = cosine_similarity([query_embedding], [emb])[0][0]
+    if similarity >= threshold:
+        relevant_docs.append(doc)
+        relevant_embeddings.append(emb)
+
+print(f"Relevant documents: {relevant_docs}")
+"""
+for doc, dist in zip(results["documents"][0], results["distances"][0]):
+    if dist <= threshold:
+        relevant_docs.append(doc)
+
+print(f"Relevant documents: {relevant_docs}")
 output_no_rag = ollama.generate(
   model="llama3.1:8B",
   prompt=f"Respond to this prompt: {input}"
@@ -52,4 +68,3 @@ output = ollama.generate(
 print(f"RAG answer : {output['response']}\n")
 
 print(f"without RAG :{output_no_rag['response']}")
-

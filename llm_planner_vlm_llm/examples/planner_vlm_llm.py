@@ -2,6 +2,7 @@ from llm_planner_vlm_llm.task_planner import TaskPlanner
 import time
 import chromadb
 import ollama
+import re
 
 def get_useful_doc(scollection,task):
     """
@@ -26,7 +27,8 @@ def get_useful_doc(scollection,task):
 
 # Set of example documents to be used for rag
 documents=['The black gloves belong to bob',
-           'The computer fan is broken',]
+           'The fan is broken',
+           'We can still use the white cloth']
 
 client = chromadb.Client()
 collection = client.create_collection(name="docs", metadata={"hnsw:space": "cosine"})
@@ -45,21 +47,44 @@ for i, d in enumerate(documents):
 response = ollama.generate(
     model='llama3.2-vision',
     prompt= 'You are a robot assistant. Please analyze the object in the image. If you see a robot arm in the picture, ignore it and focus on the object. Be concise.',
-    images= ['../Images/55.jpg']
+    images= ['../Images/53.jpg']
 )
-image_desc = response.get("response", "")
+im_desc = response.get("response", "")
+
 # Initialize the task planner
 planner = TaskPlanner(
     model_name="qwen3:4b",  # Specify the model you have in Ollama
 )
-task = f"Put this object ({image_desc}) somewhere"
+task = f"Put this object ({im_desc}) somewhere"
 
 docs = get_useful_doc(collection, task)
 print(f"Useful documents for the task : {docs}")
 
+prompt = f"""You are a fixed robotic arm equipped with a gripper. You can place objects into three distinct boxes:
+
+- Box 1: for personal objects  
+- Box 2: for tools  
+- Box 3: for trash
+
+You can use the information provided in a Python-style list: {docs}  
+Try to link related pieces of information together when they refer to similar or identical objects or concepts.
+
+Your task is the following: {task}  
+Explain **simply and concisely** what you would do to complete this task, step by step, at a high level.  
+The goal is to produce a draft plan of meaningful, human-level actions (e.g., "Grasp screwdriver", "Put pen in Box 1", etc.).
+
+Keep your explanation brief and focused. Do not include implementation details or low-level actions."""
+
+response = ollama.generate(
+    model='qwen3:4b',
+    prompt=prompt
+)
+response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)
+print(f"Response from the model: {response}")
+
 # Generate a plan for a task
 start_time = time.time()
 # We add collection to choose the best information in high_level_prompt
-result = planner.plan(task, docs)
+result = planner.plan(response, docs)
 end_time = time.time()
 print(f"Planning time: {end_time - start_time:.4f} seconds")

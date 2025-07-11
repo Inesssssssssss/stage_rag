@@ -1,12 +1,12 @@
-task: Put this hammer somewhere
+task: I need to hang a canva on the wall
 plan: !!python/tuple
-- Grasp hammer
-- Give hammer to user
+- Grasp screw
+- Hand over screw to user
 outcomes:
-  Grasp hammer: The hammer should be in the robot's gripper.
-  Give hammer to user: The robot should have given the hammer to the user.
+  Grasp screw: The screw should be in the robot's gripper.
+  Hand over screw to user: The robot should have given the screw to the user.
 steps:
-- plan_step: Grasp hammer
+- plan_step: Grasp screw
   attempts:
   - chat_entry: "Context:\nYour are now in charge of a fixed robot equipped with a\
       \ parallel gripper. \nYou will be given a high-level task that you will need\
@@ -29,16 +29,16 @@ steps:
       \ 'drop_above', 'description': 'Go to the pose for dropping an object and open\
       \ gripper.', 'arguments': {'location': ['red_tray', 'blue_tray']}, 'example':\
       \ \"drop_above('red_tray')\"}}\n\nThe task and the plan:\nYou are in charge\
-      \ of executing the following task: Put this hammer somewhere. The plan is: ('Grasp\
-      \ hammer', 'Give hammer to user')\nHere are the expected outcomes of each step\
-      \ in the plan, which you can use as a guide:\n{'Grasp hammer': \"The hammer\
-      \ should be in the robot's gripper.\", 'Give hammer to user': 'The robot should\
-      \ have given the hammer to the user.'}, we are at the step Grasp hammer\n\n\
-      What I need you to do:\nPlease output a python style list of primitives, which\
-      \ will contain action primitives to solve the current step and only the current\
-      \ step. \nPlease only use the functions I defined above and ensure the locations\
-      \ and objects that you pass as arguments are correct.\n\nA CORRECT output :\
-      \ [\"grasp_object('mug', 'body')\"]\nAnother CORRECT output : [\"handover('left')\"\
+      \ of executing the following task: I need to hang a canva on the wall. The plan\
+      \ is: ('Grasp screw', 'Hand over screw to user')\nHere are the expected outcomes\
+      \ of each step in the plan, which you can use as a guide:\n{'Grasp screw': \"\
+      The screw should be in the robot's gripper.\", 'Hand over screw to user': 'The\
+      \ robot should have given the screw to the user.'}, we are at the step Grasp\
+      \ screw\n\nWhat I need you to do:\nPlease output a python style list of primitives,\
+      \ which will contain action primitives to solve the current step and only the\
+      \ current step. \nPlease only use the functions I defined above and ensure the\
+      \ locations and objects that you pass as arguments are correct.\n\nA CORRECT\
+      \ output : [\"grasp_object('mug', 'body')\"]\nAnother CORRECT output : [\"handover('left')\"\
       ]\n\nAn INCORRECT output : [\"grasp_object('mug', 'body')\", \"handover('left')\"\
       , \"grasp_object('mug', 'body')\"]\nHere the last step is not correct because\
       \ illogical, you should only output the action primitives to solve the steps\
@@ -55,18 +55,6 @@ steps:
       \ do and output the action primitives to solve it.\n\nKeep your reasoning short\
       \ and concise, and avoid unnecessary details so that your output is easy to\
       \ read.\n/nothink\n"
-    reasoning_response: '<think>
-
-
-      </think>
-
-
-      ["grasp_object(''hammer'', ''body'')"]'
-    primitives:
-    - primitive: grasp_object('hammer', 'body')
-      success: false
-      error: Unknown object
-  - chat_entry: Unknown object
     reasoning_response: '<think>
 
 
@@ -77,7 +65,7 @@ steps:
     primitives:
     - primitive: grasp_object('philipps_screwdriver', 'shaft')
       success: true
-- plan_step: Give hammer to user
+- plan_step: Hand over screw to user
   attempts:
   - chat_entry: "Context:\nYour are now in charge of a fixed robot equipped with a\
       \ parallel gripper. \nYou will be given a high-level task that you will need\
@@ -100,32 +88,32 @@ steps:
       \ 'drop_above', 'description': 'Go to the pose for dropping an object and open\
       \ gripper.', 'arguments': {'location': ['red_tray', 'blue_tray']}, 'example':\
       \ \"drop_above('red_tray')\"}}\n\nThe task and the plan:\nYou are in charge\
-      \ of executing the following task: Put this hammer somewhere. The plan is: ('Grasp\
-      \ hammer', 'Give hammer to user')\nHere are the expected outcomes of each step\
-      \ in the plan, which you can use as a guide:\n{'Grasp hammer': \"The hammer\
-      \ should be in the robot's gripper.\", 'Give hammer to user': 'The robot should\
-      \ have given the hammer to the user.'}, we are at the step Give hammer to user\n\
-      \nWhat I need you to do:\nPlease output a python style list of primitives, which\
-      \ will contain action primitives to solve the current step and only the current\
-      \ step. \nPlease only use the functions I defined above and ensure the locations\
-      \ and objects that you pass as arguments are correct.\n\nA CORRECT output :\
-      \ [\"grasp_object('mug', 'body')\"]\nAnother CORRECT output : [\"handover('left')\"\
-      ]\n\nAn INCORRECT output : [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      , \"grasp_object('mug', 'body')\"]\nHere the last step is not correct because\
-      \ illogical, you should only output the action primitives to solve the steps\
-      \ of the plan one by one.\n\nAnother INCORRECT output : Here is the final plan\
-      \ : [\"grasp_object('mug', 'body')\", \"handover('left')\"]\nHere the use of\
-      \ \"Here is the final plan\" is not correct you should only output the plan\
-      \ as a list of primitives, where each step is a string, without any other text.\n\
-      \nAnother INCORRECT output : [grasp_object('mug', 'body'), handover('left')]\n\
-      Here the lack of quotes is not correct, you should only output strings of primitives\n\
-      \nAnother INCORRECT output : [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the step is \"Grasp banana by body\" because you're doing the full task\
-      \ instead of just the step\n\nIf the step can't be done with the given primitives\
-      \ and their arguments find the one that is the most similar to the one you can\
-      \ do and output the action primitives to solve it.\n\nKeep your reasoning short\
-      \ and concise, and avoid unnecessary details so that your output is easy to\
-      \ read.\n/nothink\n"
+      \ of executing the following task: I need to hang a canva on the wall. The plan\
+      \ is: ('Grasp screw', 'Hand over screw to user')\nHere are the expected outcomes\
+      \ of each step in the plan, which you can use as a guide:\n{'Grasp screw': \"\
+      The screw should be in the robot's gripper.\", 'Hand over screw to user': 'The\
+      \ robot should have given the screw to the user.'}, we are at the step Hand\
+      \ over screw to user\n\nWhat I need you to do:\nPlease output a python style\
+      \ list of primitives, which will contain action primitives to solve the current\
+      \ step and only the current step. \nPlease only use the functions I defined\
+      \ above and ensure the locations and objects that you pass as arguments are\
+      \ correct.\n\nA CORRECT output : [\"grasp_object('mug', 'body')\"]\nAnother\
+      \ CORRECT output : [\"handover('left')\"]\n\nAn INCORRECT output : [\"grasp_object('mug',\
+      \ 'body')\", \"handover('left')\", \"grasp_object('mug', 'body')\"]\nHere the\
+      \ last step is not correct because illogical, you should only output the action\
+      \ primitives to solve the steps of the plan one by one.\n\nAnother INCORRECT\
+      \ output : Here is the final plan : [\"grasp_object('mug', 'body')\", \"handover('left')\"\
+      ]\nHere the use of \"Here is the final plan\" is not correct you should only\
+      \ output the plan as a list of primitives, where each step is a string, without\
+      \ any other text.\n\nAnother INCORRECT output : [grasp_object('mug', 'body'),\
+      \ handover('left')]\nHere the lack of quotes is not correct, you should only\
+      \ output strings of primitives\n\nAnother INCORRECT output : [\"grasp_object('mug',\
+      \ 'body')\", \"handover('left')\"] if the step is \"Grasp banana by body\" because\
+      \ you're doing the full task instead of just the step\n\nIf the step can't be\
+      \ done with the given primitives and their arguments find the one that is the\
+      \ most similar to the one you can do and output the action primitives to solve\
+      \ it.\n\nKeep your reasoning short and concise, and avoid unnecessary details\
+      \ so that your output is easy to read.\n/nothink\n"
     reasoning_response: '<think>
 
 
@@ -158,28 +146,28 @@ prompt: "Context:\nYour are now in charge of a fixed robot equipped with a paral
   \ \"handover('right')\"}, 'drop_above': {'name': 'drop_above', 'description': 'Go\
   \ to the pose for dropping an object and open gripper.', 'arguments': {'location':\
   \ ['red_tray', 'blue_tray']}, 'example': \"drop_above('red_tray')\"}}\n\nThe task\
-  \ and the plan:\nYou are in charge of executing the following task: Put this hammer\
-  \ somewhere. The plan is: ('Grasp hammer', 'Give hammer to user')\nHere are the\
-  \ expected outcomes of each step in the plan, which you can use as a guide:\n{'Grasp\
-  \ hammer': \"The hammer should be in the robot's gripper.\", 'Give hammer to user':\
-  \ 'The robot should have given the hammer to the user.'}, we are at the step STEP_PLACEHOLDER\n\
-  \nWhat I need you to do:\nPlease output a python style list of primitives, which\
-  \ will contain action primitives to solve the current step and only the current\
-  \ step. \nPlease only use the functions I defined above and ensure the locations\
-  \ and objects that you pass as arguments are correct.\n\nA CORRECT output : [\"\
-  grasp_object('mug', 'body')\"]\nAnother CORRECT output : [\"handover('left')\"]\n\
-  \nAn INCORRECT output : [\"grasp_object('mug', 'body')\", \"handover('left')\",\
-  \ \"grasp_object('mug', 'body')\"]\nHere the last step is not correct because illogical,\
-  \ you should only output the action primitives to solve the steps of the plan one\
-  \ by one.\n\nAnother INCORRECT output : Here is the final plan : [\"grasp_object('mug',\
-  \ 'body')\", \"handover('left')\"]\nHere the use of \"Here is the final plan\" is\
-  \ not correct you should only output the plan as a list of primitives, where each\
-  \ step is a string, without any other text.\n\nAnother INCORRECT output : [grasp_object('mug',\
-  \ 'body'), handover('left')]\nHere the lack of quotes is not correct, you should\
-  \ only output strings of primitives\n\nAnother INCORRECT output : [\"grasp_object('mug',\
-  \ 'body')\", \"handover('left')\"] if the step is \"Grasp banana by body\" because\
-  \ you're doing the full task instead of just the step\n\nIf the step can't be done\
-  \ with the given primitives and their arguments find the one that is the most similar\
-  \ to the one you can do and output the action primitives to solve it.\n\nKeep your\
-  \ reasoning short and concise, and avoid unnecessary details so that your output\
-  \ is easy to read.\n/nothink\n"
+  \ and the plan:\nYou are in charge of executing the following task: I need to hang\
+  \ a canva on the wall. The plan is: ('Grasp screw', 'Hand over screw to user')\n\
+  Here are the expected outcomes of each step in the plan, which you can use as a\
+  \ guide:\n{'Grasp screw': \"The screw should be in the robot's gripper.\", 'Hand\
+  \ over screw to user': 'The robot should have given the screw to the user.'}, we\
+  \ are at the step STEP_PLACEHOLDER\n\nWhat I need you to do:\nPlease output a python\
+  \ style list of primitives, which will contain action primitives to solve the current\
+  \ step and only the current step. \nPlease only use the functions I defined above\
+  \ and ensure the locations and objects that you pass as arguments are correct.\n\
+  \nA CORRECT output : [\"grasp_object('mug', 'body')\"]\nAnother CORRECT output :\
+  \ [\"handover('left')\"]\n\nAn INCORRECT output : [\"grasp_object('mug', 'body')\"\
+  , \"handover('left')\", \"grasp_object('mug', 'body')\"]\nHere the last step is\
+  \ not correct because illogical, you should only output the action primitives to\
+  \ solve the steps of the plan one by one.\n\nAnother INCORRECT output : Here is\
+  \ the final plan : [\"grasp_object('mug', 'body')\", \"handover('left')\"]\nHere\
+  \ the use of \"Here is the final plan\" is not correct you should only output the\
+  \ plan as a list of primitives, where each step is a string, without any other text.\n\
+  \nAnother INCORRECT output : [grasp_object('mug', 'body'), handover('left')]\nHere\
+  \ the lack of quotes is not correct, you should only output strings of primitives\n\
+  \nAnother INCORRECT output : [\"grasp_object('mug', 'body')\", \"handover('left')\"\
+  ] if the step is \"Grasp banana by body\" because you're doing the full task instead\
+  \ of just the step\n\nIf the step can't be done with the given primitives and their\
+  \ arguments find the one that is the most similar to the one you can do and output\
+  \ the action primitives to solve it.\n\nKeep your reasoning short and concise, and\
+  \ avoid unnecessary details so that your output is easy to read.\n/nothink\n"

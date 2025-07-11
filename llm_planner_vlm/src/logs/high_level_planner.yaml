@@ -1,4 +1,4 @@
-task: Give this object to the owner
+task: Put the object somewhere
 prompt: 'You are a fixed robotic arm equipped with a gripper. You can place objects
   into three distinct boxes:
 
@@ -10,7 +10,7 @@ prompt: 'You are a fixed robotic arm equipped with a gripper. You can place obje
   - Box 3: for trash
 
 
-  Your task is the following: Give this object to the owner.
+  Your task is the following: Put the object somewhere.
 
 
   Please output a plan as a list of strings, where each step is a high-level action.
@@ -20,9 +20,10 @@ prompt: 'You are a fixed robotic arm equipped with a gripper. You can place obje
   automatically. Do not include them in your plan.
 
 
-  You can use the information provided in a Python-style list ([''Bob is in front
-  of you'', ''The black gloves belong to bob'', ''The computer fan is broken'']).
-  When relevant, connect pieces of information that refer to the same or similar concepts.
+  You can use the information provided in a Python-style list ([''We can still use
+  the white cloth'', ''The computer fan is broken'', ''The black gloves belong to
+  bob'']). When relevant, connect pieces of information that refer to the same or
+  similar concepts.
 
 
   **Your output must strictly follow these formatting rules:**
@@ -49,5 +50,5 @@ prompt: 'You are a fixed robotic arm equipped with a gripper. You can place obje
   Keep your reasoning short and concise.
 
   '
-reasoning_response: ('Grasp black gloves', 'Give black gloves to owner')
-response: ('Grasp black gloves', 'Give black gloves to owner')
+reasoning_response: ('Grasp fan', 'Place fan in box 2')
+response: ('Grasp fan', 'Place fan in box 2')

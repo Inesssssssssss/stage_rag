@@ -43,7 +43,6 @@ class HighLevelPlanner:
         prompt = re.sub(r"TASK_PLACEHOLDER", task, self.prompt_template)
 
         #Ajout des document utile dans le prompt
-        prompt = re.sub(r"RAG", str(useful_docs), prompt)
         reasonning_response = self.llm_client.generate(prompt)
         response = re.sub(r'<think>.*?</think>\s*', '', reasonning_response, flags=re.DOTALL)
         

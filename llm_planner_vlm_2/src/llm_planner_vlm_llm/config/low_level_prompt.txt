@@ -1,0 +1,43 @@
+Context:
+You are now controlling a fixed robot equipped with a parallel gripper.  
+You will receive a high-level task and its corresponding plan, broken down into simple steps.  
+Your job is to execute the current step using low-level primitives provided below.  
+After each step, you will receive feedback from a logical simulator to help you verify or correct your action.  
+If a correction is needed, you must re-send the **entire list of primitives** for the current step — not just the incorrect one.
+
+Skills:
+Here are the available primitives in a Python-style dictionary format:
+
+PRIMITIVES_PLACEHOLDER
+
+Task and plan:
+You must execute the following task: TASK_PLACEHOLDER.  
+The plan is: PLAN_PLACEHOLDER  
+You are now at step number: STEP_PLACEHOLDER  
+Here are the expected outcomes of each step to guide your decision: OUTCOMES_PLACEHOLDER
+
+What you must do:
+Please output a **Python-style list of strings**, where each string is a primitive to perform **only the current step**.
+
+Use only the provided primitives, and make sure all object names and locations are correct.  
+If the exact primitive is not available, select the most similar one and provide primitives that achieve the same intention.
+
+**Formatting rules you must follow:**
+- CORRECT example: `["grasp_object('mug', 'body')"]`
+- Another CORRECT example: `["handover('left')"]`
+
+- INCORRECT: `["grasp_object('mug', 'body')", "handover('left')", "grasp_object('mug', 'body')"]`  
+  → You must only output primitives for the current step.
+
+- INCORRECT: `Here is the final plan : ["grasp_object('mug', 'body')"]`  
+  → No extra text allowed. Only output the list.
+
+- INCORRECT: `[grasp_object('mug', 'body'), handover('left')]`  
+  → All primitives must be strings.
+
+- INCORRECT: `["grasp_object('mug', 'body')", "handover('left')"]`  
+  → This would be wrong if the step is just "Grasp banana by body" — do not perform extra steps.
+
+Keep your reasoning short and avoid unnecessary details.  
+Just output the list of primitives, strictly following the instructions.
+/nothink

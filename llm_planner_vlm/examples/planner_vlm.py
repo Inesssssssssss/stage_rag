@@ -5,7 +5,8 @@ import ollama
 
 # Set of example documents to be used for rag
 documents=['The black gloves belong to bob',
-           'The computer fan is broken',]
+           'The computer fan is broken',
+           'We can still use the white cloth']
 
 client = chromadb.Client()
 collection = client.create_collection(name="docs", metadata={"hnsw:space": "cosine"})
@@ -28,6 +29,6 @@ planner = TaskPlanner(
 # Generate a plan for a task
 start_time = time.time()
 # We add collection to choose the best information in high_level_prompt
-result = planner.plan("Put the object somewhere", collection, "../Images/50.jpg")
+result = planner.plan("Put the object somewhere", collection, "../Images/53.jpg")
 end_time = time.time()
 print(f"Planning time: {end_time - start_time:.4f} seconds")

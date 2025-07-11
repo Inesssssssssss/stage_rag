@@ -1,12 +1,14 @@
-task: Put this hammer somewhere
+task: I need to hang a canva on the wall
 prompt: "You are in charge of a fixed robotic arm ending in a gripper. Your task is\
-  \ the following: Put this hammer somewhere.\nPlease output an plan, composed of\
-  \ a high level action to carry out this task. \nYou can assume that simple actions\
+  \ the following: I need to hang a canva on the wall.\nPlease output an plan, composed\
+  \ of a high level action to carry out this task. \nYou can assume that simple actions\
   \ (such as grasping or handing objects) automatically move the arm to the correct\
   \ position, \nso you should avoid actions such as 'move to...'.\nYou can use this\
   \ different informations given in a python style list, try to connect all the informations\
-  \ between them when you see similarity between sentences : []\n\nOutput your plan\
-  \ as a list of strings, where each step is a string.\n\nA CORRECT output : ('Grasp\
+  \ between them when you see similarity between sentences : ['I need a screw to hang\
+  \ the canva', 'The user is in front of you', 'When the user is hungry, he wants\
+  \ to eat food', 'Water is put in a mug', 'Banana is food']\n\nOutput your plan as\
+  \ a list of strings, where each step is a string.\n\nA CORRECT output : ('Grasp\
   \ knife', 'Give knife to user')\n\nAnother CORRECT output : ('Grasp mug', 'Hand\
   \ over mug to user on the left')\n\nAn INCORRECT output : ('Grasp mug', \"Handover\
   \ to the left\")\nThe use of the double quotes is not correct\n\nAnother INCORRECT\
@@ -21,5 +23,5 @@ reasoning_response: '<think>
   </think>
 
 
-  (''Grasp hammer'', ''Give hammer to user'')'
-response: ('Grasp hammer', 'Give hammer to user')
+  (''Grasp screw'', ''Hand over screw to user'')'
+response: ('Grasp screw', 'Hand over screw to user')

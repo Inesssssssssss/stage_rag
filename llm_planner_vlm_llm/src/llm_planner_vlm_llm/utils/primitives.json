@@ -3,7 +3,7 @@
     {
       "description": "Grasp the specified object at a specific subpart.",
       "arguments": {
-        "object": ["mug", "philipps_screwdriver", "scissors", "banana", "gloves", "fan", "fabric"],
+        "object": ["mug", "philipps_screwdriver", "scissors", "banana", "gloves", "fan", "fabric", "block"],
         "subpart": {
           "mug": ["handle", "body"],
           "philipps_screwdriver": ["handle", "shaft"],
@@ -11,7 +11,8 @@
           "banana": ["body"],
           "gloves": ["body"],
           "fan": ["body"],
-          "fabric": ["body"]
+          "fabric": ["body"],
+          "block": ["body"]
         }
       },
       "example": "grasp_object('mug', 'body')"

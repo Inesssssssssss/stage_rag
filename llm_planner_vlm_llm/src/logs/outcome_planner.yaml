@@ -1,12 +1,10 @@
-task: The stained fabric is likely trash due to its damaged state and discarding context.
-  Place it in **Box 3**.
+task: "Grasp pair of scissors  \nPut scissors in Box 2"
 plan: !!python/tuple
-- Grasp stained fabric
-- Place stained fabric in Box 3
-prompt: "You are in charge of executing the following task: The stained fabric is\
-  \ likely trash due to its damaged state and discarding context. Place it in **Box\
-  \ 3**.. The plan consists of the following steps: ('Grasp stained fabric', 'Place\
-  \ stained fabric in Box 3').\nEach of the steps of the plan will be executed with\
+- Grasp scissors
+- Put scissors in Box 2
+prompt: "You are in charge of executing the following task: Grasp pair of scissors\
+  \  \nPut scissors in Box 2. The plan consists of the following steps: ('Grasp scissors',\
+  \ 'Put scissors in Box 2').\nEach of the steps of the plan will be executed with\
   \ a fixed robot equipped with an arm ending in a gripper. \nFor each step of the\
   \ plan, I need you to give the expected outcome of the actions involved in the step,\
   \ in physical and visual terms.\nThis should consist of one or two short, simple\
@@ -42,9 +40,7 @@ reasoning_response: '<think>
   </think>
 
 
-  {''Grasp stained fabric'': ''The stained fabric should be in the robot\''s gripper.'',
-  ''Place stained fabric in Box 3'': ''The stained fabric should be on the surface
-  of Box 3.''}'
-response: '{''Grasp stained fabric'': ''The stained fabric should be in the robot\''s
-  gripper.'', ''Place stained fabric in Box 3'': ''The stained fabric should be on
-  the surface of Box 3.''}'
+  {''Grasp scissors'': ''The scissors should be in the robot\''s gripper.'', ''Put
+  scissors in Box 2'': ''The scissors should be placed in Box 2.''}'
+response: '{''Grasp scissors'': ''The scissors should be in the robot\''s gripper.'',
+  ''Put scissors in Box 2'': ''The scissors should be placed in Box 2.''}'

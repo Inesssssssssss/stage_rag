@@ -1,25 +1,23 @@
-task: The stained fabric is likely trash due to its damaged state and discarding context.
-  Place it in **Box 3**.
+task: "Grasp pair of scissors  \nPut scissors in Box 2"
 prompt: "You are in charge of a fixed robotic arm ending in a gripper. Your task is\
-  \ the following: The stained fabric is likely trash due to its damaged state and\
-  \ discarding context. Place it in **Box 3**..\nPlease output an plan, composed of\
-  \ a high level action to carry out this task. \nYou can assume that simple actions\
-  \ (such as grasping or handing objects) automatically move the arm to the correct\
-  \ position, \nso you should avoid actions such as 'move to...'.\n\nOutput your plan\
-  \ as a list of strings, where each step is a string.\n\nA CORRECT output : ('Grasp\
-  \ knife', 'Give knife to user')\n\nAnother CORRECT output : ('Grasp mug', 'Hand\
-  \ over mug to user on the left')\n\nAn INCORRECT output : ('Grasp mug', \"Handover\
-  \ to the left\")\nThe use of the double quotes is not correct\n\nAnother INCORRECT\
-  \ output : The final plan is : ('Grasp mug', 'Hand over mug to user on the left')\n\
-  Here the use of \"The final plan is\" is not correct you should only output the\
-  \ plan as a list of strings, where each step is a string, without any other text.\n\
-  \n\nKeep your reasoning short and concise, and avoid unnecessary details so that\
-  \ your output is easy to read.\n/nothink"
+  \ the following: Grasp pair of scissors  \nPut scissors in Box 2.  \nPlease output\
+  \ a plan, composed of high-level actions to carry out this task.\n\nAssume that\
+  \ simple actions (such as grasping or handing objects) automatically move the arm\
+  \ to the correct position.  \nDo not include actions such as \"move to...\" or describe\
+  \ low-level motion.\n\nOutput your plan strictly as a Python-style tuple of strings:\
+  \  \nEach step should be a string describing a high-level action.\n\nCORRECT output\
+  \ example:  \n('Grasp knife', 'Give knife to user')  \n\nAnother CORRECT example:\
+  \  \n('Grasp mug', 'Hand over mug to user on the left')  \n\nINCORRECT: Do not use\
+  \ double quotes inside the tuple:  \n('Grasp mug', \"Handover to the left\") ← Wrong\
+  \ quote style  \n\nINCORRECT: Do not add explanatory text:  \nThe final plan is:\
+  \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text  \n\nKeep your\
+  \ reasoning concise and omit unnecessary details.  \nYour output must only be the\
+  \ plan: a tuple of strings, and nothing else.\n\n/nothink\n"
 reasoning_response: '<think>
 
 
   </think>
 
 
-  (''Grasp stained fabric'', ''Place stained fabric in Box 3'')'
-response: ('Grasp stained fabric', 'Place stained fabric in Box 3')
+  (''Grasp scissors'', ''Put scissors in Box 2'')'
+response: ('Grasp scissors', 'Put scissors in Box 2')

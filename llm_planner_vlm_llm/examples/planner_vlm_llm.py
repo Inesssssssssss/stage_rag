@@ -18,6 +18,10 @@ response = ollama.generate(
     model='llama3.2-vision',
     prompt= 'You are a robot assistant. Please analyze the object on the table in the image. If you see a robot arm or a table in the picture , ignore it and focus on the object. Be concise.',
     images= ['Images/live.png']
+    , options={
+        "temperature": 0.0,
+        "num_predict": 1024
+    }
 )
 im_desc = response.get("response", "")
 print(f"Image description: {im_desc}")
@@ -26,7 +30,7 @@ print(f"Image description: {im_desc}")
 planner = TaskPlanner(
     model_name="qwen3:4b",  # Specify the model you have in Ollama
 )
-task = f"Put this object ({im_desc}) somewhere"
+task = "Organize the desk"
 docs = []
 
 prompt = get_draft(docs, task, im_desc)
@@ -60,7 +64,7 @@ if rep.lower() != 'no':
         model='qwen3:4b',
         prompt=prompt,
         options={
-                    "temperature": 0.0,
+                    "temperature": 0.5,
                     "num_predict": 1024
                 }
     )

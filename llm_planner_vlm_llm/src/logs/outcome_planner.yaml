@@ -1,46 +1,61 @@
-task: "Grasp pair of scissors  \nPut scissors in Box 2"
+task: "Grasp green block  \nPut green block in Box 2  \nGrasp blue block  \nPut blue\
+  \ block in Box 3  \nGrasp light blue block  \nPut light blue block in Box 1"
 plan: !!python/tuple
-- Grasp scissors
-- Put scissors in Box 2
-prompt: "You are in charge of executing the following task: Grasp pair of scissors\
-  \  \nPut scissors in Box 2. The plan consists of the following steps: ('Grasp scissors',\
-  \ 'Put scissors in Box 2').\nEach of the steps of the plan will be executed with\
-  \ a fixed robot equipped with an arm ending in a gripper. \nFor each step of the\
-  \ plan, I need you to give the expected outcome of the actions involved in the step,\
-  \ in physical and visual terms.\nThis should consist of one or two short, simple\
-  \ sentences that are a more complete and detailed description of the step's outcome.\
-  \ \nThe sentences should describe the final state of the robot, for example if it\
-  \ should be at a location, have grasped an object (and what part of the object,\
-  \ \nif relevant for the task), or where an object should be put down. \nYou can\
-  \ add some information if the plan is too concise. Here are some examples, with\
-  \ the plan step first and the expected outcome after:\n- Put bottle on shelf: The\
-  \ bottle should be on the shelf.\n- Grasp the mug: The mug should be in the robot's\
-  \ gripper.\n- Grasp the knife: The knife blade should be in the robot's gripper.\n\
-  For each step of the plan, please briefly describe the expected outcome as shown\
-  \ above. Give the expected outcomes as a python-style dictionary where the keys\
-  \ are the steps of the plan and the values are the expected outcomes.\n\nHere are\
-  \ some correct and incorrect examples of the expected outcomes:\n\nA CORRECT output\
-  \ : {'Grasp mug': 'The mug should be in the robot\\'s gripper.', 'Handover to the\
-  \ left': 'The robot should have moved on the left and gave the object.'}\n\nAnother\
-  \ CORRECT output : {'Grasp knife by the blade': 'The knife blade should be in the\
-  \ robot\\'s gripper.', 'Give knife to user': 'The robot should have given the knife\
-  \ to the user.'}\n\nAn INCORRECT output : ('Grasp mug': 'The mug should be in the\
-  \ robot\\'s gripper.', 'Handover to the left': 'The robot should have moved on the\
-  \ left and gave the object.')\nHere the python dictionary is not correct, you should\
-  \ only output the expected outcomes as a python dictionary and output no other text.\n\
-  \nAn INCORRECT output : {'Grasp knife by the blade': 'The knife blade should be\
-  \ in the robot\\'s gripper.'}\nHere the plan is not complete.\n\n\nOutput the expected\
-  \ outcomes as a python-style dictionary where the keys are the steps of the plan\
-  \ and the values are the expected outcomes and no other text.\n\nKeep your reasoning\
-  \ short and concise, and avoid unnecessary details so that your output is easy to\
-  \ read.\n/nothink"
+- Grasp green block
+- Put green block in Box 2
+- Grasp blue block
+- Put blue block in Box 3
+- Grasp light blue block
+- Put light blue block in Box 1
+prompt: "You are in charge of executing the following task: Grasp green block  \n\
+  Put green block in Box 2  \nGrasp blue block  \nPut blue block in Box 3  \nGrasp\
+  \ light blue block  \nPut light blue block in Box 1. The plan consists of the following\
+  \ steps: ('Grasp green block', 'Put green block in Box 2', 'Grasp blue block', 'Put\
+  \ blue block in Box 3', 'Grasp light blue block', 'Put light blue block in Box 1').\n\
+  Each of the steps of the plan will be executed with a fixed robot equipped with\
+  \ an arm ending in a gripper. \nFor each step of the plan, I need you to give the\
+  \ expected outcome of the actions involved in the step, in physical and visual terms.\n\
+  This should consist of one or two short, simple sentences that are a more complete\
+  \ and detailed description of the step's outcome. \nThe sentences should describe\
+  \ the final state of the robot, for example if it should be at a location, have\
+  \ grasped an object (and what part of the object, \nif relevant for the task), or\
+  \ where an object should be put down. \nYou can add some information if the plan\
+  \ is too concise. Here are some examples, with the plan step first and the expected\
+  \ outcome after:\n- Put bottle on shelf: The bottle should be on the shelf.\n- Grasp\
+  \ the mug: The mug should be in the robot's gripper.\n- Grasp the knife: The knife\
+  \ blade should be in the robot's gripper.\nFor each step of the plan, please briefly\
+  \ describe the expected outcome as shown above. Give the expected outcomes as a\
+  \ python-style dictionary where the keys are the steps of the plan and the values\
+  \ are the expected outcomes.\n\nHere are some correct and incorrect examples of\
+  \ the expected outcomes:\n\nA CORRECT output : {'Grasp mug': 'The mug should be\
+  \ in the robot\\'s gripper.', 'Handover to the left': 'The robot should have moved\
+  \ on the left and gave the object.'}\n\nAnother CORRECT output : {'Grasp knife by\
+  \ the blade': 'The knife blade should be in the robot\\'s gripper.', 'Give knife\
+  \ to user': 'The robot should have given the knife to the user.'}\n\nAn INCORRECT\
+  \ output : ('Grasp mug': 'The mug should be in the robot\\'s gripper.', 'Handover\
+  \ to the left': 'The robot should have moved on the left and gave the object.')\n\
+  Here the python dictionary is not correct, you should only output the expected outcomes\
+  \ as a python dictionary and output no other text.\n\nAn INCORRECT output : {'Grasp\
+  \ knife by the blade': 'The knife blade should be in the robot\\'s gripper.'}\n\
+  Here the plan is not complete.\n\n\nOutput the expected outcomes as a python-style\
+  \ dictionary where the keys are the steps of the plan and the values are the expected\
+  \ outcomes and no other text.\n\nKeep your reasoning short and concise, and avoid\
+  \ unnecessary details so that your output is easy to read.\n/nothink"
 reasoning_response: '<think>
 
 
   </think>
 
 
-  {''Grasp scissors'': ''The scissors should be in the robot\''s gripper.'', ''Put
-  scissors in Box 2'': ''The scissors should be placed in Box 2.''}'
-response: '{''Grasp scissors'': ''The scissors should be in the robot\''s gripper.'',
-  ''Put scissors in Box 2'': ''The scissors should be placed in Box 2.''}'
+  {''Grasp green block'': ''The green block should be in the robot\''s gripper.'',
+  ''Put green block in Box 2'': ''The green block should be on Box 2.'', ''Grasp blue
+  block'': ''The blue block should be in the robot\''s gripper.'', ''Put blue block
+  in Box 3'': ''The blue block should be on Box 3.'', ''Grasp light blue block'':
+  ''The light blue block should be in the robot\''s gripper.'', ''Put light blue block
+  in Box 1'': ''The light blue block should be on Box 1.''}'
+response: '{''Grasp green block'': ''The green block should be in the robot\''s gripper.'',
+  ''Put green block in Box 2'': ''The green block should be on Box 2.'', ''Grasp blue
+  block'': ''The blue block should be in the robot\''s gripper.'', ''Put blue block
+  in Box 3'': ''The blue block should be on Box 3.'', ''Grasp light blue block'':
+  ''The light blue block should be in the robot\''s gripper.'', ''Put light blue block
+  in Box 1'': ''The light blue block should be on Box 1.''}'

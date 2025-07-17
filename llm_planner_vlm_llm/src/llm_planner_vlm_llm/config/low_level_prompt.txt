@@ -1,43 +1,49 @@
 Context:
-You are now controlling a fixed robot equipped with a parallel gripper.  
-You will receive a high-level task and its corresponding plan, broken down into simple steps.  
-Your job is to execute the current step using low-level primitives provided below.  
-After each step, you will receive feedback from a logical simulator to help you verify or correct your action.  
-If a correction is needed, you must re-send the **entire list of primitives** for the current step — not just the incorrect one.
+You are now in charge of a fixed robot equipped with a parallel gripper.  
+You will be given a high-level task that you must fulfill using this robot, along with a corresponding plan made up of simple high-level steps.  
+You will carry out the task step by step by interacting with the system using code primitives.  
+After each step, a logical simulator will provide feedback to indicate whether the step was correctly executed.  
+If you make a mistake, correct it by resending the entire list of primitives for the current step — not just the one that was incorrect.
 
 Skills:
-Here are the available primitives in a Python-style dictionary format:
+Below is a dictionary of available functions and their syntax, written in Python-style:
 
 PRIMITIVES_PLACEHOLDER
 
-Task and plan:
-You must execute the following task: TASK_PLACEHOLDER.  
-The plan is: PLAN_PLACEHOLDER  
-You are now at step number: STEP_PLACEHOLDER  
-Here are the expected outcomes of each step to guide your decision: OUTCOMES_PLACEHOLDER
+The task and the plan:
+You are in charge of executing the following task: TASK_PLACEHOLDER.  
+The plan to achieve this task is: PLAN_PLACEHOLDER  
+Expected outcomes for each step are provided as guidance: OUTCOMES_PLACEHOLDER  
+You are currently at the step: STEP_PLACEHOLDER
 
 What you must do:
-Please output a **Python-style list of strings**, where each string is a primitive to perform **only the current step**.
+Output a Python-style list of primitives to solve only the current step, using only the available primitives.  
+Verify that all object names and locations are valid and consistent with the provided functions.  
+If the exact primitive is not available, select the most similar one to achieve the intended effect.
 
-Use only the provided primitives, and make sure all object names and locations are correct.  
-If the exact primitive is not available, select the most similar one and provide primitives that achieve the same intention.
+Formatting rules:
+- CORRECT: ["grasp_object('mug', 'body')"]
+- CORRECT: ["handover('left')"]
 
-**Formatting rules you must follow:**
-- CORRECT example: `["grasp_object('mug', 'body')"]`
-- Another CORRECT example: `["handover('left')"]`
+- INCORRECT: ["grasp_object('mug', 'body')", "handover('left')", "grasp_object('mug', 'body')"]  
+  → Too many primitives; solve only the current step.
 
-- INCORRECT: `["grasp_object('mug', 'body')", "handover('left')", "grasp_object('mug', 'body')"]`  
-  → You must only output primitives for the current step.
+- INCORRECT: Do not add explanatory text:  
+  The final plan is: ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text 
 
-- INCORRECT: `Here is the final plan : ["grasp_object('mug', 'body')"]`  
-  → No extra text allowed. Only output the list.
-
-- INCORRECT: `[grasp_object('mug', 'body'), handover('left')]`  
+- INCORRECT: [grasp_object('mug', 'body'), handover('left')]  
   → All primitives must be strings.
 
-- INCORRECT: `["grasp_object('mug', 'body')", "handover('left')"]`  
-  → This would be wrong if the step is just "Grasp banana by body" — do not perform extra steps.
+- INCORRECT: ["grasp_object('mug', 'body')", "handover('left')"] if the current step is just "Grasp banana by body"  
+  → Do only what is needed for the current step.
 
-Keep your reasoning short and avoid unnecessary details.  
-Just output the list of primitives, strictly following the instructions.
-/nothink
+Output rules (STRICT):
+- Your output must be a single Python-style list of strings, e.g.:  
+  ["grasp_object('banana', 'body')"]
+- Do not include any reasoning, explanation, or comments.
+- Do not add extra lines, labels, or Markdown formatting.
+- The response must only be the list. Nothing more.
+
+If you are correcting a previous mistake, just resend the corrected list of primitives — no justification needed.
+Your output must be a SINGLE python-style LIST with only one element and nothing else.
+

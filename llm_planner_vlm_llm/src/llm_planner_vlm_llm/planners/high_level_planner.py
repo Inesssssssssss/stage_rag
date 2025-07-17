@@ -53,6 +53,7 @@ class HighLevelPlanner:
             "reasoning_response": reasonning_response,
             "response": response
         }
+        print(f"High-level plan response: {response}")
         
         # Write the data to a YAML file
         with open(self.log_file, 'w') as f:

@@ -24,3 +24,5 @@ An INCORRECT example: `('Grasp mug', "Handover to the left")` → double quotes 
 Another INCORRECT example: `The final plan is: ('Grasp mug', 'Hand over mug to user on the left')` → no extra text is allowed
 
 Keep your reasoning short and concise.
+
+/nothink

@@ -44,6 +44,7 @@ class LogicalTwin:
         valid_objects = primitive["arguments"]["object"]
         if obj not in valid_objects:
             raise LogicalTwinError('Unknown object')
+            print(f'Valid objects: {valid_objects}')
             
         valid_parts = primitive["arguments"]["subpart"][obj]
         if part not in valid_parts:
@@ -51,6 +52,7 @@ class LogicalTwin:
             
         if self.holding != None:
             raise LogicalTwinError('Gripper is already holding an object')
+            print(f'Gripper is already holding {self.holding}')
             
         self.prev_holding = self.holding
         self.holding = obj

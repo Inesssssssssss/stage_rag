@@ -16,7 +16,7 @@ documents=["The blue block is owned by Bob"]
 get_image()
 response = ollama.generate(
     model='llama3.2-vision',
-    prompt= 'You are a robot assistant. Please analyze the object on the table in the image. If you see a robot arm or a table in the picture , ignore it and focus on the object. Be concise.',
+    prompt= 'You are a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects',
     images= ['Images/live.png']
     , options={
         "temperature": 0.0,
@@ -28,16 +28,20 @@ print(f"Image description: {im_desc}")
 
 # Initialize the task planner
 planner = TaskPlanner(
-    model_name="qwen3:4b",  # Specify the model you have in Ollama
+    model_name="llama3.1:8b",  # Specify the model you have in Ollama
 )
-task = "Organize the desk"
+
 docs = []
 
-prompt = get_draft(docs, task, im_desc)
+prompt = get_draft(docs, im_desc)
 start_time = time.time()
 response = ollama.generate(
     model='qwen3:4b',
-    prompt=prompt
+    prompt=prompt,
+    options={
+            "temperature": 0.0,
+            "num_predict": 1024
+        }
 )
 response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)
 print(f"Response from the model: {response}")
@@ -56,9 +60,9 @@ if rep.lower() != 'no':
             documents=[d]
         )
 
-    docs = get_useful_doc(collection, task)
+    docs = get_useful_doc(collection, im_desc)
     print(f"Useful documents for the task: {docs}")
-    prompt = get_draft(docs, task, im_desc)
+    prompt = get_draft(docs, im_desc)
 
     response = ollama.generate(
         model='qwen3:4b',

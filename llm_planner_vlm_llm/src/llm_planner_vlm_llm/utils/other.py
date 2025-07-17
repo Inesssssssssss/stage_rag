@@ -20,7 +20,7 @@ def get_useful_doc(collection,task):
         n_results=10
     )
     # Generate a threshold to filter relevant documents ( thresold can be adjusted)
-    threshold = 0.9
+    threshold = 0.5
     relevant_docs = []
     for doc, dist in zip(results["documents"][0], results["distances"][0]):
         if dist <= threshold:
@@ -32,7 +32,11 @@ def get_image():
     Get an image from the camera and save it
     """
     config = Config()
-    pipeline = Pipeline()
+    ctx = Context()
+    dev_list = ctx.query_devices()
+    pipeline = Pipeline(dev_list[1])
+    device = pipeline.get_device()
+    device.set_int_property(OBPropertyID.OB_PROP_DEPTH_EXPOSURE_INT, 100)
     try:
         profile_list = pipeline.get_stream_profile_list(OBSensorType.COLOR_SENSOR)
         try:
@@ -109,7 +113,7 @@ def frame_to_bgr_image(frame: VideoFrame) -> Union[Optional[np.array], Any]:
         return None
     return image
 
-def get_draft(rag : str, task: str, image) -> str:
+def get_draft(rag : str, image) -> str:
     """
     Generate a draft plan using the RAG model.
     
@@ -127,7 +131,6 @@ def get_draft(rag : str, task: str, image) -> str:
     
     with open(draft_file, 'r') as f:
         file = f.read()
-    prompt = re.sub(r"TASK_PLACEHOLDER", task, file)
-    prompt = re.sub(r"RAG_PLACEHOLDER", str(rag), prompt)
+    prompt = re.sub(r"RAG_PLACEHOLDER", str(rag), file)
     prompt = re.sub(r"IMAGE_PLACEHOLDER", image, prompt)
     return prompt

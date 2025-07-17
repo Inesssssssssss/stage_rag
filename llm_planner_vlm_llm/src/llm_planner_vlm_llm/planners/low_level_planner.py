@@ -59,7 +59,8 @@ class LowLevelPlanner:
         
         self.logical_twin.reset()
         primitives = []
-        for plan_step in outcomes.keys():
+        #for plan_step in outcomes.keys():
+        for plan_step in plan:
             self.llm_client.reset_chat()        
             success = False
             

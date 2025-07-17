@@ -1,28 +1,33 @@
-task: "Grasp green block  \nPut green block in Box 2  \nGrasp blue block  \nPut blue\
-  \ block in Box 3  \nGrasp light blue block  \nPut light blue block in Box 1"
+task: "Grasp red cup  \nPut red cup in Box 2  \n\nGrasp banana  \nPut banana in Box\
+  \ 1  \n\nGrasp green Lego brick  \nPut green Lego brick in Box 2  \n\nGrasp blue\
+  \ Lego brick  \nPut blue Lego brick in Box 2"
 prompt: "You are in charge of a fixed robotic arm ending in a gripper. Your task is\
-  \ the following: Grasp green block  \nPut green block in Box 2  \nGrasp blue block\
-  \  \nPut blue block in Box 3  \nGrasp light blue block  \nPut light blue block in\
-  \ Box 1.  \nPlease output a plan, composed of high-level actions to carry out this\
-  \ task.\n\nAssume that simple actions (such as grasping or handing objects) automatically\
-  \ move the arm to the correct position.  \nDo not include actions such as \"move\
-  \ to...\" or describe low-level motion.\n\nOutput your plan strictly as a Python-style\
-  \ tuple of strings:  \nEach step should be a string describing a high-level action.\n\
-  \nCORRECT output example:  \n('Grasp knife', 'Give knife to user')  \n\nAnother\
-  \ CORRECT example:  \n('Grasp mug', 'Hand over mug to user on the left')  \n\nINCORRECT:\
-  \ Do not use double quotes inside the tuple:  \n('Grasp mug', \"Handover to the\
-  \ left\") ← Wrong quote style  \n\nINCORRECT: Do not add explanatory text:  \nThe\
-  \ final plan is: ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text\
-  \  \n\nKeep your reasoning concise and omit unnecessary details.  \nYour output\
-  \ must only be the plan: a tuple of strings, and nothing else.\n\n/nothink\n"
-reasoning_response: '<think>
+  \ the following: Grasp red cup  \nPut red cup in Box 2  \n\nGrasp banana  \nPut\
+  \ banana in Box 1  \n\nGrasp green Lego brick  \nPut green Lego brick in Box 2 \
+  \ \n\nGrasp blue Lego brick  \nPut blue Lego brick in Box 2.  \nPlease output a\
+  \ plan, composed of high-level actions to carry out this task.\n\nAssume that simple\
+  \ actions (such as grasping or handing objects) automatically move the arm to the\
+  \ correct position.  \nDo not include actions such as \"move to...\" or describe\
+  \ low-level motion.\n\nOutput your plan strictly as a Python-style tuple of strings:\
+  \  \nEach step should be a string describing a high-level action.\n\nCORRECT output\
+  \ example:  \n('Grasp knife', 'Give knife to user')  \n\nAnother CORRECT example:\n\
+  ('Grasp banana', 'Hand over banana to user in front', 'Grasp orange', 'Put the orange\
+  \ in box 1') \n\nINCORRECT: Do not use double quotes inside the tuple:  \n('Grasp\
+  \ mug', \"Handover to the left\") ← Wrong quote style  \n\nINCORRECT: Do not add\
+  \ explanatory text:  \nThe final plan is: ('Grasp mug', 'Hand over mug to user on\
+  \ the left') ← Unwanted text  \n\nKeep your reasoning concise and omit unnecessary\
+  \ details.  \nYour output must be a SINGLE TUPLE and NOTHING ELSE\n"
+reasoning_response: '(''Grasp red cup'', ''Put red cup in Box 2'',
 
+  ''Grasp banana'', ''Put banana in Box 1'',
 
-  </think>
+  ''Grasp green Lego brick'', ''Put green Lego brick in Box 2'',
 
+  ''Grasp blue Lego brick'', ''Put blue Lego brick in Box 2'')'
+response: '(''Grasp red cup'', ''Put red cup in Box 2'',
 
-  (''Grasp green block'', ''Put green block in Box 2'', ''Grasp blue block'', ''Put
-  blue block in Box 3'', ''Grasp light blue block'', ''Put light blue block in Box
-  1'')'
-response: ('Grasp green block', 'Put green block in Box 2', 'Grasp blue block', 'Put
-  blue block in Box 3', 'Grasp light blue block', 'Put light blue block in Box 1')
+  ''Grasp banana'', ''Put banana in Box 1'',
+
+  ''Grasp green Lego brick'', ''Put green Lego brick in Box 2'',
+
+  ''Grasp blue Lego brick'', ''Put blue Lego brick in Box 2'')'

@@ -84,23 +84,21 @@ class TaskPlanner:
         
         print(f"\n{MAGENTA}{BOLD}=== 🧠 TASK PLANNER ==={RESET}")
         print(f"{MAGENTA}Task:{RESET} {task}")
-
-        
-        high_level_plan = self.high_level_planner.plan(task, useful_docs)
-        expected_outcomes = self.outcome_planner.predict_outcomes(task, high_level_plan)
-        low_level_plan = self.low_level_planner.plan(task, high_level_plan, expected_outcomes)
      
         
         #Fancy print 
+        high_level_plan = self.high_level_planner.plan(task, useful_docs)
         print(f"\n{CYAN}{BOLD}=== 📋 HIGH LEVEL PLAN ==={RESET}")
         for i, step in enumerate(high_level_plan):
             print(f"{GREEN}Step {i}:{RESET} {step}")
             
 
+        expected_outcomes = self.outcome_planner.predict_outcomes(task, high_level_plan)
         print(f"\n{CYAN}{BOLD}=== 🎯 EXPECTED OUTCOMES ==={RESET}")
         for step, outcome in expected_outcomes.items():
             print(f"{YELLOW}• {step}:{RESET} {outcome}")
 
+        low_level_plan = self.low_level_planner.plan(task, high_level_plan, expected_outcomes)
         print(f"\n{CYAN}{BOLD}=== 💻 LOW LEVEL PLAN ==={RESET}")
         for i, step in enumerate(low_level_plan):
             print(f"{BLUE}Step {i}:{RESET} {step}")

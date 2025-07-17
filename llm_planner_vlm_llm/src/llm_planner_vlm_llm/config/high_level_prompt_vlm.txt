@@ -10,8 +10,8 @@ Each step should be a string describing a high-level action.
 CORRECT output example:  
 ('Grasp knife', 'Give knife to user')  
 
-Another CORRECT example:  
-('Grasp mug', 'Hand over mug to user on the left')  
+Another CORRECT example:
+('Grasp banana', 'Hand over banana to user in front', 'Grasp orange', 'Put the orange in box 1') 
 
 INCORRECT: Do not use double quotes inside the tuple:  
 ('Grasp mug', "Handover to the left") ← Wrong quote style  
@@ -20,6 +20,4 @@ INCORRECT: Do not add explanatory text:
 The final plan is: ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text  
 
 Keep your reasoning concise and omit unnecessary details.  
-Your output must only be the plan: a tuple of strings, and nothing else.
-
-/nothink
+Your output must be a SINGLE TUPLE and NOTHING ELSE

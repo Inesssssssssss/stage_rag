@@ -7,7 +7,7 @@ import numpy as np
 import os
 import re
 
-def get_useful_doc(collection,task):
+def get_useful_doc(collection,task,threshold=0.5):
     """
     Find the most useful information in the documents
     """
@@ -20,7 +20,6 @@ def get_useful_doc(collection,task):
         n_results=10
     )
     # Generate a threshold to filter relevant documents ( thresold can be adjusted)
-    threshold = 0.5
     relevant_docs = []
     for doc, dist in zip(results["documents"][0], results["distances"][0]):
         if dist <= threshold:
@@ -36,7 +35,6 @@ def get_image():
     dev_list = ctx.query_devices()
     pipeline = Pipeline(dev_list[1])
     device = pipeline.get_device()
-    device.set_int_property(OBPropertyID.OB_PROP_DEPTH_EXPOSURE_INT, 100)
     try:
         profile_list = pipeline.get_stream_profile_list(OBSensorType.COLOR_SENSOR)
         try:

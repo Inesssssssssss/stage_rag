@@ -37,6 +37,13 @@ class LLMClient:
     def reset_chat(self):
         """Reset the chat history."""
         self.messages = []
+        self.messages.append(
+            {
+                'role': 'system',
+                'content': 'You are a robot controller inside a simulator. Your ONLY job is to return a Python-style list with exactly one string that represents a robot primitive. Do not explain. Do not label. Do not add text before or after. Just return the list. Any extra text will cause the simulation to fail.'
+            }
+        )
+        
     
     
     def generate(self, prompt: str, temperature: float = 0, max_tokens: int = 1024) -> str:
@@ -110,4 +117,6 @@ class LLMClient:
         )
         
         return response
+
+        
     

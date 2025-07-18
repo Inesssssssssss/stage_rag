@@ -72,6 +72,7 @@ class LowLevelPlanner:
             chat_entry = re.sub(r"STEP_PLACEHOLDER", str(plan_step), prompt)
             while not success:
                 reasonning_response = self.llm_client.chat(chat_entry)
+                print(f"Reasoning response: {reasonning_response}")
                 plan_step_primitives = re.sub(r'<think>.*?</think>\s*', '', reasonning_response, flags=re.DOTALL)
                 
                 attempt_log = {
@@ -100,7 +101,7 @@ class LowLevelPlanner:
                             "success": False,
                             "error": error_msg
                         })
-                        self.logical_twin.undo_action()
+                        #self.logical_twin.undo_action()
                         break
                     
                 step_log["attempts"].append(attempt_log)

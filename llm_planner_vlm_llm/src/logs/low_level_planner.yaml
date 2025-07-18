@@ -1,42 +1,47 @@
-task: "Grasp green block  \nPut green block in Box 3  \nGrasp blue block  \nPut blue\
-  \ block in Box 2  \nGrasp red cup  \nPut red cup in Box 1  \nGrasp banana  \nPut\
-  \ banana in Box 1"
+task: "Grasp green Lego brick  \nPut green Lego brick in Box 1  \n\nGrasp blue Lego\
+  \ brick  \nPut blue Lego brick in Box 2  \n\nGrasp banana  \nPut banana in Box 3\
+  \  \n\nGrasp red cup  \nPut red cup in Box 3"
 plan: !!python/tuple
-- Grasp green block
-- Put green block in Box 3
-- Grasp blue block
-- Put blue block in Box 2
-- Grasp red cup
-- Put red cup in Box 1
+- Grasp green Lego brick
+- Put green Lego brick in Box 1
+- Grasp blue Lego brick
+- Put blue Lego brick in Box 2
 - Grasp banana
-- Put banana in Box 1
+- Put banana in Box 3
+- Grasp red cup
+- Put red cup in Box 3
 outcomes:
-  Grasp green block: The green block should be in the robot's gripper.
-  Put green block in Box 3: The green block should be on top of other objects in Box
-    3.
-  Grasp blue block: The blue block should be in the robot's gripper.
-  Put blue block in Box 2: The blue block should be on top of other objects in Box
-    2.
-  Grasp red cup: The red cup should be in the robot's gripper.
-  Put red cup in Box 1: The red cup should be on top of other objects in Box 1.
+  Grasp green Lego brick: The green Lego brick should be in the robot's gripper.
+  Put green Lego brick in Box 1: The green Lego brick should be on top of other objects
+    in Box 1.
+  Grasp blue Lego brick: The blue Lego brick should be in the robot's gripper.
+  Put blue Lego brick in Box 2: The blue Lego brick should be on top of other objects
+    in Box 2.
   Grasp banana: The banana should be in the robot's gripper.
-  Put banana in Box 1: The banana should be on top of other objects in Box 1.
+  Put banana in Box 3: The banana should be on top of other objects in Box 3.
+  Grasp red cup: The red cup handle should be in the robot's gripper.
+  Put red cup in Box 3: The red cup should be on top of other objects in Box 3.
 steps:
-- plan_step: Grasp green block
+- plan_step: Grasp green Lego brick
   attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
       \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
       \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
       \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
@@ -44,62 +49,65 @@ steps:
       \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
       \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
       \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Grasp green block\n\nWhat you must do:\nOutput a Python-style\
-      \ list of primitives to solve only the current step, using only the available\
-      \ primitives.  \nVerify that all object names and locations are valid and consistent\
-      \ with the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Grasp green Lego brick\n\nWhat you must do:\nOutput\
+      \ a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["grasp_object(''green Lego brick'', ''body'')"]'
+    primitives:
+    - primitive: grasp_object('green Lego brick', 'body')
+      success: false
+      error: Unknown object
+  - chat_entry: Unknown object
     reasoning_response: '["grasp_object(''block'', ''body'')"]'
     primitives:
     - primitive: grasp_object('block', 'body')
       success: true
-- plan_step: Put green block in Box 3
+- plan_step: Put green Lego brick in Box 1
   attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
       \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
       \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
       \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
@@ -107,62 +115,59 @@ steps:
       \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
       \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
       \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Put green block in Box 3\n\nWhat you must do:\nOutput a Python-style\
-      \ list of primitives to solve only the current step, using only the available\
-      \ primitives.  \nVerify that all object names and locations are valid and consistent\
-      \ with the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
-    reasoning_response: '["drop_above(''box_3'')"]'
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Put green Lego brick in Box 1\n\nWhat you must do:\n\
+      Output a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["drop_above(''box_1'')"]'
     primitives:
-    - primitive: drop_above('box_3')
+    - primitive: drop_above('box_1')
       success: true
-- plan_step: Grasp blue block
+- plan_step: Grasp blue Lego brick
   attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
       \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
       \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
       \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
@@ -170,62 +175,65 @@ steps:
       \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
       \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
       \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Grasp blue block\n\nWhat you must do:\nOutput a Python-style\
-      \ list of primitives to solve only the current step, using only the available\
-      \ primitives.  \nVerify that all object names and locations are valid and consistent\
-      \ with the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Grasp blue Lego brick\n\nWhat you must do:\nOutput\
+      \ a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["grasp_object(''blue Lego brick'', ''body'')"]'
+    primitives:
+    - primitive: grasp_object('blue Lego brick', 'body')
+      success: false
+      error: Unknown object
+  - chat_entry: Unknown object
     reasoning_response: '["grasp_object(''block'', ''body'')"]'
     primitives:
     - primitive: grasp_object('block', 'body')
       success: true
-- plan_step: Put blue block in Box 2
+- plan_step: Put blue Lego brick in Box 2
   attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
       \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
       \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
       \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
@@ -233,62 +241,59 @@ steps:
       \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
       \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
       \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Put blue block in Box 2\n\nWhat you must do:\nOutput a Python-style\
-      \ list of primitives to solve only the current step, using only the available\
-      \ primitives.  \nVerify that all object names and locations are valid and consistent\
-      \ with the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Put blue Lego brick in Box 2\n\nWhat you must do:\n\
+      Output a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
     reasoning_response: '["drop_above(''box_2'')"]'
     primitives:
     - primitive: drop_above('box_2')
       success: true
-- plan_step: Grasp red cup
+- plan_step: Grasp banana
   attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
       \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
       \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
       \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
@@ -296,46 +301,158 @@ steps:
       \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
       \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
       \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Grasp red cup\n\nWhat you must do:\nOutput a Python-style list\
-      \ of primitives to solve only the current step, using only the available primitives.\
-      \  \nVerify that all object names and locations are valid and consistent with\
-      \ the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
-    reasoning_response: '["grasp_object(''red cup'', ''body'')"]'
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Grasp banana\n\nWhat you must do:\nOutput a single\
+      \ Python-style list with exactly **one** primitive string to solve **only**\
+      \ the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["grasp_object(''banana'', ''body'')"]'
     primitives:
-    - primitive: grasp_object('red cup', 'body')
+    - primitive: grasp_object('banana', 'body')
+      success: true
+- plan_step: Put banana in Box 3
+  attempts:
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+      \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
+      \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
+      \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
+      \ for handing over an object to a human and open gripper.', 'arguments': {'direction':\
+      \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
+      \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
+      \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Put banana in Box 3\n\nWhat you must do:\nOutput\
+      \ a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["drop_above(''box_3'')"]'
+    primitives:
+    - primitive: drop_above('box_3')
+      success: true
+- plan_step: Grasp red cup
+  attempts:
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+      \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
+      \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
+      \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
+      \ for handing over an object to a human and open gripper.', 'arguments': {'direction':\
+      \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
+      \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
+      \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Grasp red cup\n\nWhat you must do:\nOutput a single\
+      \ Python-style list with exactly **one** primitive string to solve **only**\
+      \ the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["grasp_object(''red cup'', ''handle'')"]'
+    primitives:
+    - primitive: grasp_object('red cup', 'handle')
       success: false
       error: Unknown object
   - chat_entry: Unknown object
@@ -345,35 +462,36 @@ steps:
       success: false
       error: Unknown object
   - chat_entry: Unknown object
-    reasoning_response: '["grasp_object(''block'', ''body'')"]'
+    reasoning_response: '["grasp_object(''red cup'', ''body'')"]'
     primitives:
-    - primitive: grasp_object('block', 'body')
+    - primitive: grasp_object('red cup', 'body')
       success: false
-      error: Gripper is already holding an object
-  - chat_entry: Gripper is already holding an object
-    reasoning_response: '["drop_above(''box_1'')", "handover(''right'')", "grasp_object(''red
-      cup'', ''body'')"]'
+      error: Unknown object
+  - chat_entry: Unknown object
+    reasoning_response: '["grasp_object(''mug'', ''handle'')"]'
     primitives:
-    - primitive: drop_above('box_1')
+    - primitive: grasp_object('mug', 'handle')
       success: true
-    - primitive: handover('right')
-      success: false
-      error: Gripper is not holding an object
-- plan_step: Put red cup in Box 1
+- plan_step: Put red cup in Box 3
   attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
+  - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
+      - A Python-style list with **exactly one** string primitive\n- No explanation,\
+      \ no label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown,\
+      \ no blank lines\n- Any deviation will be rejected by the simulator\n\nYou are\
+      \ now in charge of a fixed robot equipped with a parallel gripper.  \nYou will\
+      \ be given a high-level task that you must fulfill using this robot, along with\
+      \ a corresponding plan made up of simple high-level steps.  \nYou will carry\
+      \ out the task step by step by interacting with the system using code primitives.\
+      \  \nAfter each step, a logical simulator will provide feedback to indicate\
+      \ whether the step was correctly executed.  \nIf you make a mistake, correct\
+      \ it by resending the entire list of primitives for the current step — not just\
+      \ the one that was incorrect.\n\nSkills:\nBelow is a dictionary of available\
+      \ functions and their syntax, written in Python-style.\nUse **only** the listed\
+      \ primitives, with **only** the allowed arguments.\n\nAvailable primitives:\n\
+      {'grasp_object': {'description': 'Grasp the specified object at a specific subpart.',\
+      \ 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors', 'banana',\
+      \ 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+      \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
       \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
       \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
       \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
@@ -381,235 +499,95 @@ steps:
       \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
       \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
       \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Put red cup in Box 1\n\nWhat you must do:\nOutput a Python-style\
-      \ list of primitives to solve only the current step, using only the available\
-      \ primitives.  \nVerify that all object names and locations are valid and consistent\
-      \ with the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
-    reasoning_response: '["drop_above(''box_1'')"]'
+      \ 'example': \"drop_above('box_1')\"}}\n\nIf the current step cannot be expressed\
+      \ exactly with one of these primitives, choose the MOST semantically SIMILAR\
+      \ one from the list. Do not invent, rename, or guess.\n\nStrict argument rules:\n\
+      - Object names, subparts, directions, and locations must **exactly** match the\
+      \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
+      - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
+      \ plan:\nYou are executing the following task: Grasp green Lego brick  \nPut\
+      \ green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+      \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut\
+      \ red cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick\
+      \ in Box 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp\
+      \ banana', 'Put banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3') \
+      \ \nExpected outcomes: {'Grasp green Lego brick': \"The green Lego brick should\
+      \ be in the robot's gripper.\", 'Put green Lego brick in Box 1': 'The green\
+      \ Lego brick should be on top of other objects in Box 1.', 'Grasp blue Lego\
+      \ brick': \"The blue Lego brick should be in the robot's gripper.\", 'Put blue\
+      \ Lego brick in Box 2': 'The blue Lego brick should be on top of other objects\
+      \ in Box 2.', 'Grasp banana': \"The banana should be in the robot's gripper.\"\
+      , 'Put banana in Box 3': 'The banana should be on top of other objects in Box\
+      \ 3.', 'Grasp red cup': \"The red cup handle should be in the robot's gripper.\"\
+      , 'Put red cup in Box 3': 'The red cup should be on top of other objects in\
+      \ Box 3.'}  \nCurrent step: Put red cup in Box 3\n\nWhat you must do:\nOutput\
+      \ a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["drop_above(''box_3'')"]'
     primitives:
-    - primitive: drop_above('box_1')
-      success: true
-- plan_step: Grasp banana
-  attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
-      \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
-      \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
-      \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
-      \ for handing over an object to a human and open gripper.', 'arguments': {'direction':\
-      \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
-      \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
-      \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Grasp banana\n\nWhat you must do:\nOutput a Python-style list\
-      \ of primitives to solve only the current step, using only the available primitives.\
-      \  \nVerify that all object names and locations are valid and consistent with\
-      \ the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
-    reasoning_response: '["grasp_object(''banana'', ''body'')"]'
-    primitives:
-    - primitive: grasp_object('banana', 'body')
-      success: true
-- plan_step: Put banana in Box 1
-  attempts:
-  - chat_entry: "Context:\nYou are now in charge of a fixed robot equipped with a\
-      \ parallel gripper.  \nYou will be given a high-level task that you must fulfill\
-      \ using this robot, along with a corresponding plan made up of simple high-level\
-      \ steps.  \nYou will carry out the task step by step by interacting with the\
-      \ system using code primitives.  \nAfter each step, a logical simulator will\
-      \ provide feedback to indicate whether the step was correctly executed.  \n\
-      If you make a mistake, correct it by resending the entire list of primitives\
-      \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
-      \ is a dictionary of available functions and their syntax, written in Python-style:\n\
-      \n{'grasp_object': {'description': 'Grasp the specified object at a specific\
-      \ subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
-      \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart':\
-      \ {'mug': ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors':\
-      \ ['handle', 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'],\
-      \ 'fabric': ['body'], 'block': ['body'], 'camera_support': ['body']}}, 'example':\
-      \ \"grasp_object('mug', 'body')\"}, 'handover': {'description': 'Go to the pose\
-      \ for handing over an object to a human and open gripper.', 'arguments': {'direction':\
-      \ ['left', 'right', 'front']}, 'example': \"handover('right')\"}, 'drop_above':\
-      \ {'name': 'drop_above', 'description': 'Go to the pose for dropping an object\
-      \ and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-      \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in\
-      \ charge of executing the following task: Grasp green block  \nPut green block\
-      \ in Box 3  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup \
-      \ \nPut red cup in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan\
-      \ to achieve this task is: ('Grasp green block', 'Put green block in Box 3',\
-      \ 'Grasp blue block', 'Put blue block in Box 2', 'Grasp red cup', 'Put red cup\
-      \ in Box 1', 'Grasp banana', 'Put banana in Box 1')  \nExpected outcomes for\
-      \ each step are provided as guidance: {'Grasp green block': \"The green block\
-      \ should be in the robot's gripper.\", 'Put green block in Box 3': 'The green\
-      \ block should be on top of other objects in Box 3.', 'Grasp blue block': \"\
-      The blue block should be in the robot's gripper.\", 'Put blue block in Box 2':\
-      \ 'The blue block should be on top of other objects in Box 2.', 'Grasp red cup':\
-      \ \"The red cup should be in the robot's gripper.\", 'Put red cup in Box 1':\
-      \ 'The red cup should be on top of other objects in Box 1.', 'Grasp banana':\
-      \ \"The banana should be in the robot's gripper.\", 'Put banana in Box 1': 'The\
-      \ banana should be on top of other objects in Box 1.'}  \nYou are currently\
-      \ at the step: Put banana in Box 1\n\nWhat you must do:\nOutput a Python-style\
-      \ list of primitives to solve only the current step, using only the available\
-      \ primitives.  \nVerify that all object names and locations are valid and consistent\
-      \ with the provided functions.  \nIf the exact primitive is not available, select\
-      \ the most similar one to achieve the intended effect.\n\nFormatting rules:\n\
-      - CORRECT: [\"grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"\
-      ]\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\", \"\
-      grasp_object('mug', 'body')\"]  \n  → Too many primitives; solve only the current\
-      \ step.\n\n- INCORRECT: Do not add explanatory text:  \n  The final plan is:\
-      \ ('Grasp mug', 'Hand over mug to user on the left') ← Unwanted text \n\n- INCORRECT:\
-      \ [grasp_object('mug', 'body'), handover('left')]  \n  → All primitives must\
-      \ be strings.\n\n- INCORRECT: [\"grasp_object('mug', 'body')\", \"handover('left')\"\
-      ] if the current step is just \"Grasp banana by body\"  \n  → Do only what is\
-      \ needed for the current step.\n\nOutput rules (STRICT):\n- Your output must\
-      \ be a single Python-style list of strings, e.g.:  \n  [\"grasp_object('banana',\
-      \ 'body')\"]\n- Do not include any reasoning, explanation, or comments.\n- Do\
-      \ not add extra lines, labels, or Markdown formatting.\n- The response must\
-      \ only be the list. Nothing more.\n\nIf you are correcting a previous mistake,\
-      \ just resend the corrected list of primitives — no justification needed.\n\
-      Your output must be a SINGLE python-style LIST with only one element and nothing\
-      \ else.\n\n"
-    reasoning_response: '["drop_above(''box_1'')"]'
-    primitives:
-    - primitive: drop_above('box_1')
+    - primitive: drop_above('box_3')
       success: true
 primitives:
 - grasp_object('block', 'body')
-- drop_above('box_3')
+- drop_above('box_1')
 - grasp_object('block', 'body')
 - drop_above('box_2')
-- drop_above('box_1')
-- handover('right')
-- grasp_object('red cup', 'body')
-- drop_above('box_1')
 - grasp_object('banana', 'body')
-- drop_above('box_1')
-prompt: "Context:\nYou are now in charge of a fixed robot equipped with a parallel\
-  \ gripper.  \nYou will be given a high-level task that you must fulfill using this\
-  \ robot, along with a corresponding plan made up of simple high-level steps.  \n\
-  You will carry out the task step by step by interacting with the system using code\
-  \ primitives.  \nAfter each step, a logical simulator will provide feedback to indicate\
-  \ whether the step was correctly executed.  \nIf you make a mistake, correct it\
-  \ by resending the entire list of primitives for the current step — not just the\
-  \ one that was incorrect.\n\nSkills:\nBelow is a dictionary of available functions\
-  \ and their syntax, written in Python-style:\n\n{'grasp_object': {'description':\
-  \ 'Grasp the specified object at a specific subpart.', 'arguments': {'object': ['mug',\
-  \ 'philipps_screwdriver', 'scissors', 'banana', 'gloves', 'fan', 'fabric', 'block',\
-  \ 'camera_support'], 'subpart': {'mug': ['handle', 'body'], 'philipps_screwdriver':\
-  \ ['handle', 'shaft'], 'scissors': ['handle', 'blade'], 'banana': ['body'], 'gloves':\
-  \ ['body'], 'fan': ['body'], 'fabric': ['body'], 'block': ['body'], 'camera_support':\
-  \ ['body']}}, 'example': \"grasp_object('mug', 'body')\"}, 'handover': {'description':\
-  \ 'Go to the pose for handing over an object to a human and open gripper.', 'arguments':\
-  \ {'direction': ['left', 'right', 'front']}, 'example': \"handover('right')\"},\
-  \ 'drop_above': {'name': 'drop_above', 'description': 'Go to the pose for dropping\
-  \ an object and open gripper.', 'arguments': {'location': ['box_1', 'box_2', 'box_3']},\
-  \ 'example': \"drop_above('box_1')\"}}\n\nThe task and the plan:\nYou are in charge\
-  \ of executing the following task: Grasp green block  \nPut green block in Box 3\
-  \  \nGrasp blue block  \nPut blue block in Box 2  \nGrasp red cup  \nPut red cup\
-  \ in Box 1  \nGrasp banana  \nPut banana in Box 1.  \nThe plan to achieve this task\
-  \ is: ('Grasp green block', 'Put green block in Box 3', 'Grasp blue block', 'Put\
-  \ blue block in Box 2', 'Grasp red cup', 'Put red cup in Box 1', 'Grasp banana',\
-  \ 'Put banana in Box 1')  \nExpected outcomes for each step are provided as guidance:\
-  \ {'Grasp green block': \"The green block should be in the robot's gripper.\", 'Put\
-  \ green block in Box 3': 'The green block should be on top of other objects in Box\
-  \ 3.', 'Grasp blue block': \"The blue block should be in the robot's gripper.\"\
-  , 'Put blue block in Box 2': 'The blue block should be on top of other objects in\
-  \ Box 2.', 'Grasp red cup': \"The red cup should be in the robot's gripper.\", 'Put\
-  \ red cup in Box 1': 'The red cup should be on top of other objects in Box 1.',\
-  \ 'Grasp banana': \"The banana should be in the robot's gripper.\", 'Put banana\
-  \ in Box 1': 'The banana should be on top of other objects in Box 1.'}  \nYou are\
-  \ currently at the step: STEP_PLACEHOLDER\n\nWhat you must do:\nOutput a Python-style\
-  \ list of primitives to solve only the current step, using only the available primitives.\
-  \  \nVerify that all object names and locations are valid and consistent with the\
-  \ provided functions.  \nIf the exact primitive is not available, select the most\
-  \ similar one to achieve the intended effect.\n\nFormatting rules:\n- CORRECT: [\"\
-  grasp_object('mug', 'body')\"]\n- CORRECT: [\"handover('left')\"]\n\n- INCORRECT:\
-  \ [\"grasp_object('mug', 'body')\", \"handover('left')\", \"grasp_object('mug',\
-  \ 'body')\"]  \n  → Too many primitives; solve only the current step.\n\n- INCORRECT:\
-  \ Do not add explanatory text:  \n  The final plan is: ('Grasp mug', 'Hand over\
-  \ mug to user on the left') ← Unwanted text \n\n- INCORRECT: [grasp_object('mug',\
-  \ 'body'), handover('left')]  \n  → All primitives must be strings.\n\n- INCORRECT:\
-  \ [\"grasp_object('mug', 'body')\", \"handover('left')\"] if the current step is\
-  \ just \"Grasp banana by body\"  \n  → Do only what is needed for the current step.\n\
-  \nOutput rules (STRICT):\n- Your output must be a single Python-style list of strings,\
-  \ e.g.:  \n  [\"grasp_object('banana', 'body')\"]\n- Do not include any reasoning,\
-  \ explanation, or comments.\n- Do not add extra lines, labels, or Markdown formatting.\n\
-  - The response must only be the list. Nothing more.\n\nIf you are correcting a previous\
-  \ mistake, just resend the corrected list of primitives — no justification needed.\n\
-  Your output must be a SINGLE python-style LIST with only one element and nothing\
-  \ else.\n\n"
+- drop_above('box_3')
+- grasp_object('mug', 'handle')
+- drop_above('box_3')
+prompt: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n- A\
+  \ Python-style list with **exactly one** string primitive\n- No explanation, no\
+  \ label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown, no blank\
+  \ lines\n- Any deviation will be rejected by the simulator\n\nYou are now in charge\
+  \ of a fixed robot equipped with a parallel gripper.  \nYou will be given a high-level\
+  \ task that you must fulfill using this robot, along with a corresponding plan made\
+  \ up of simple high-level steps.  \nYou will carry out the task step by step by\
+  \ interacting with the system using code primitives.  \nAfter each step, a logical\
+  \ simulator will provide feedback to indicate whether the step was correctly executed.\
+  \  \nIf you make a mistake, correct it by resending the entire list of primitives\
+  \ for the current step — not just the one that was incorrect.\n\nSkills:\nBelow\
+  \ is a dictionary of available functions and their syntax, written in Python-style.\n\
+  Use **only** the listed primitives, with **only** the allowed arguments.\n\nAvailable\
+  \ primitives:\n{'grasp_object': {'description': 'Grasp the specified object at a\
+  \ specific subpart.', 'arguments': {'object': ['mug', 'philipps_screwdriver', 'scissors',\
+  \ 'banana', 'gloves', 'fan', 'fabric', 'block', 'camera_support'], 'subpart': {'mug':\
+  \ ['handle', 'body'], 'philipps_screwdriver': ['handle', 'shaft'], 'scissors': ['handle',\
+  \ 'blade'], 'banana': ['body'], 'gloves': ['body'], 'fan': ['body'], 'fabric': ['body'],\
+  \ 'block': ['body'], 'camera_support': ['body']}}, 'example': \"grasp_object('mug',\
+  \ 'body')\"}, 'handover': {'description': 'Go to the pose for handing over an object\
+  \ to a human and open gripper.', 'arguments': {'direction': ['left', 'right', 'front']},\
+  \ 'example': \"handover('right')\"}, 'drop_above': {'name': 'drop_above', 'description':\
+  \ 'Go to the pose for dropping an object and open gripper.', 'arguments': {'location':\
+  \ ['box_1', 'box_2', 'box_3']}, 'example': \"drop_above('box_1')\"}}\n\nIf the current\
+  \ step cannot be expressed exactly with one of these primitives, choose the MOST\
+  \ semantically SIMILAR one from the list. Do not invent, rename, or guess.\n\nStrict\
+  \ argument rules:\n- Object names, subparts, directions, and locations must **exactly**\
+  \ match the values provided.\n- Do not use synonyms, abbreviations, or undefined\
+  \ values.\n- Any primitive with an invalid argument will be rejected.\n\nThe task\
+  \ and the plan:\nYou are executing the following task: Grasp green Lego brick  \n\
+  Put green Lego brick in Box 1  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
+  \ in Box 2  \n\nGrasp banana  \nPut banana in Box 3  \n\nGrasp red cup  \nPut red\
+  \ cup in Box 3  \nPlan: ('Grasp green Lego brick', 'Put green Lego brick in Box\
+  \ 1', 'Grasp blue Lego brick', 'Put blue Lego brick in Box 2', 'Grasp banana', 'Put\
+  \ banana in Box 3', 'Grasp red cup', 'Put red cup in Box 3')  \nExpected outcomes:\
+  \ {'Grasp green Lego brick': \"The green Lego brick should be in the robot's gripper.\"\
+  , 'Put green Lego brick in Box 1': 'The green Lego brick should be on top of other\
+  \ objects in Box 1.', 'Grasp blue Lego brick': \"The blue Lego brick should be in\
+  \ the robot's gripper.\", 'Put blue Lego brick in Box 2': 'The blue Lego brick should\
+  \ be on top of other objects in Box 2.', 'Grasp banana': \"The banana should be\
+  \ in the robot's gripper.\", 'Put banana in Box 3': 'The banana should be on top\
+  \ of other objects in Box 3.', 'Grasp red cup': \"The red cup handle should be in\
+  \ the robot's gripper.\", 'Put red cup in Box 3': 'The red cup should be on top\
+  \ of other objects in Box 3.'}  \nCurrent step: STEP_PLACEHOLDER\n\nWhat you must\
+  \ do:\nOutput a single Python-style list with exactly **one** primitive string to\
+  \ solve **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+  \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"]  \n\
+  INVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+  \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n- Only\
+  \ valid objects and arguments\n- Only the list — no text, no reasoning, no labels\n"

@@ -1,41 +1,41 @@
-task: "Grasp red cup  \nPut red cup in Box 2  \n\nGrasp banana  \nPut banana in Box\
-  \ 1  \n\nGrasp green Lego brick  \nPut green Lego brick in Box 2  \n\nGrasp blue\
-  \ Lego brick  \nPut blue Lego brick in Box 2"
+task: "Grasp banana, Put banana in Box 2.  \nGrasp green Lego brick, Put green Lego\
+  \ brick in Box 1.  \nGrasp blue Lego brick, Put blue Lego brick in Box 1.  \nGrasp\
+  \ red cup, Put red cup in Box 3."
 plan: !!python/tuple
-- Grasp red cup
-- Put red cup in Box 2
 - Grasp banana
-- Put banana in Box 1
+- Put banana in Box 2
 - Grasp green Lego brick
-- Put green Lego brick in Box 2
+- Put green Lego brick in Box 1
 - Grasp blue Lego brick
-- Put blue Lego brick in Box 2
-prompt: "You are in charge of executing the following task: Grasp red cup  \nPut red\
-  \ cup in Box 2  \n\nGrasp banana  \nPut banana in Box 1  \n\nGrasp green Lego brick\
-  \  \nPut green Lego brick in Box 2  \n\nGrasp blue Lego brick  \nPut blue Lego brick\
-  \ in Box 2. The plan consists of the following steps: ('Grasp red cup', 'Put red\
-  \ cup in Box 2', 'Grasp banana', 'Put banana in Box 1', 'Grasp green Lego brick',\
-  \ 'Put green Lego brick in Box 2', 'Grasp blue Lego brick', 'Put blue Lego brick\
-  \ in Box 2').\nEach of the steps of the plan will be executed with a fixed robot\
-  \ equipped with an arm ending in a gripper. \nFor each step of the plan, I need\
-  \ you to give the expected outcome of the actions involved in the step, in physical\
-  \ and visual terms.\nThis should consist of one or two short, simple sentences that\
-  \ are a more complete and detailed description of the step's outcome. \nThe sentences\
-  \ should describe the final state of the robot, for example if it should be at a\
-  \ location, have grasped an object (and what part of the object, \nif relevant for\
-  \ the task), or where an object should be put down. \nYou can add some information\
-  \ if the plan is too concise. Here are some examples, with the plan step first and\
-  \ the expected outcome after:\n- Put bottle on shelf: The bottle should be on the\
-  \ shelf.\n- Grasp the mug: The mug should be in the robot's gripper.\n- Grasp the\
-  \ knife: The knife blade should be in the robot's gripper.\nFor each step of the\
-  \ plan, please briefly describe the expected outcome as shown above. Give the expected\
-  \ outcomes as a python-style dictionary where the keys are the steps of the plan\
-  \ and the values are the expected outcomes.\n\nHere are some correct and incorrect\
-  \ examples of the expected outcomes:\n\nA CORRECT output : {'Grasp mug': 'The mug\
-  \ should be in the robot\\'s gripper.', 'Handover to the left': 'The robot should\
-  \ have moved on the left and gave the object.'}\n\nAnother CORRECT output : {'Grasp\
-  \ knife by the blade': 'The knife blade should be in the robot\\'s gripper.', 'Give\
-  \ knife to user': 'The robot should have given the knife to the user.'}\n\nAn INCORRECT\
+- Put blue Lego brick in Box 1
+- Grasp red cup
+- Put red cup in Box 3
+prompt: "You are in charge of executing the following task: Grasp banana, Put banana\
+  \ in Box 2.  \nGrasp green Lego brick, Put green Lego brick in Box 1.  \nGrasp blue\
+  \ Lego brick, Put blue Lego brick in Box 1.  \nGrasp red cup, Put red cup in Box\
+  \ 3.. The plan consists of the following steps: ('Grasp banana', 'Put banana in\
+  \ Box 2', 'Grasp green Lego brick', 'Put green Lego brick in Box 1', 'Grasp blue\
+  \ Lego brick', 'Put blue Lego brick in Box 1', 'Grasp red cup', 'Put red cup in\
+  \ Box 3').\nEach of the steps of the plan will be executed with a fixed robot equipped\
+  \ with an arm ending in a gripper. \nFor each step of the plan, I need you to give\
+  \ the expected outcome of the actions involved in the step, in physical and visual\
+  \ terms.\nThis should consist of one or two short, simple sentences that are a more\
+  \ complete and detailed description of the step's outcome. \nThe sentences should\
+  \ describe the final state of the robot, for example if it should be at a location,\
+  \ have grasped an object (and what part of the object, \nif relevant for the task),\
+  \ or where an object should be put down. \nYou can add some information if the plan\
+  \ is too concise. Here are some examples, with the plan step first and the expected\
+  \ outcome after:\n- Put bottle on shelf: The bottle should be on the shelf.\n- Grasp\
+  \ the mug: The mug should be in the robot's gripper.\n- Grasp the knife: The knife\
+  \ blade should be in the robot's gripper.\nFor each step of the plan, please briefly\
+  \ describe the expected outcome as shown above. Give the expected outcomes as a\
+  \ python-style dictionary where the keys are the steps of the plan and the values\
+  \ are the expected outcomes.\n\nHere are some correct and incorrect examples of\
+  \ the expected outcomes:\n\nA CORRECT output : {'Grasp mug': 'The mug should be\
+  \ in the robot\\'s gripper.', 'Handover to the left': 'The robot should have moved\
+  \ on the left and gave the object.'}\n\nAnother CORRECT output : {'Grasp knife by\
+  \ the blade': 'The knife blade should be in the robot\\'s gripper.', 'Give knife\
+  \ to user': 'The robot should have given the knife to the user.'}\n\nAn INCORRECT\
   \ output : ('Grasp mug': 'The mug should be in the robot\\'s gripper.', 'Handover\
   \ to the left': 'The robot should have moved on the left and gave the object.')\n\
   Here the python dictionary is not correct, you should only output the expected outcomes\
@@ -45,21 +45,19 @@ prompt: "You are in charge of executing the following task: Grasp red cup  \nPut
   \ dictionary where the keys are the steps of the plan and the values are the expected\
   \ outcomes and no other text.\n\nKeep your reasoning short and concise, and avoid\
   \ unnecessary details so that your output is easy to read.\n/nothink"
-reasoning_response: "{'Grasp red cup': 'The red cup should be in the robot\\'s gripper.',\
-  \ \n'Put red cup in Box 2': 'The red cup should be on top of other objects in Box\
-  \ 2.',\n'Grasp banana': 'The banana should be in the robot\\'s gripper.',\n'Put\
-  \ banana in Box 1': 'The banana should be on top of other objects in Box 1.',\n\
-  'Grasp green Lego brick': 'The green Lego brick should be in the robot\\'s gripper.',\n\
-  'Put green Lego brick in Box 2': 'The green Lego brick should be on top of other\
-  \ objects in Box 2.',\n'Grasp blue Lego brick': 'The blue Lego brick should be in\
-  \ the robot\\'s gripper.',\n'Put blue Lego brick in Box 2': 'The blue Lego brick\
-  \ should be on top of other objects in Box 2.'}"
-response: "{'Grasp red cup': 'The red cup should be in the robot\\'s gripper.', \n\
-  'Put red cup in Box 2': 'The red cup should be on top of other objects in Box 2.',\n\
-  'Grasp banana': 'The banana should be in the robot\\'s gripper.',\n'Put banana in\
-  \ Box 1': 'The banana should be on top of other objects in Box 1.',\n'Grasp green\
-  \ Lego brick': 'The green Lego brick should be in the robot\\'s gripper.',\n'Put\
-  \ green Lego brick in Box 2': 'The green Lego brick should be on top of other objects\
-  \ in Box 2.',\n'Grasp blue Lego brick': 'The blue Lego brick should be in the robot\\\
-  's gripper.',\n'Put blue Lego brick in Box 2': 'The blue Lego brick should be on\
-  \ top of other objects in Box 2.'}"
+reasoning_response: "{'Grasp banana': 'The banana should be in the robot\\'s gripper.',\
+  \ \n'Put banana in Box 2': 'The banana should be placed inside Box 2.', \n'Grasp\
+  \ green Lego brick': 'The green Lego brick should be in the robot\\'s gripper.',\
+  \ \n'Put green Lego brick in Box 1': 'The green Lego brick should be placed inside\
+  \ Box 1.', \n'Grasp blue Lego brick': 'The blue Lego brick should be in the robot\\\
+  's gripper.', \n'Put blue Lego brick in Box 1': 'The blue Lego brick should be placed\
+  \ inside Box 1.', \n'Grasp red cup': 'The red cup should be in the robot\\'s gripper.',\
+  \ \n'Put red cup in Box 3': 'The red cup should be placed inside Box 3.'}"
+response: "{'Grasp banana': 'The banana should be in the robot\\'s gripper.', \n'Put\
+  \ banana in Box 2': 'The banana should be placed inside Box 2.', \n'Grasp green\
+  \ Lego brick': 'The green Lego brick should be in the robot\\'s gripper.', \n'Put\
+  \ green Lego brick in Box 1': 'The green Lego brick should be placed inside Box\
+  \ 1.', \n'Grasp blue Lego brick': 'The blue Lego brick should be in the robot\\\
+  's gripper.', \n'Put blue Lego brick in Box 1': 'The blue Lego brick should be placed\
+  \ inside Box 1.', \n'Grasp red cup': 'The red cup should be in the robot\\'s gripper.',\
+  \ \n'Put red cup in Box 3': 'The red cup should be placed inside Box 3.'}"

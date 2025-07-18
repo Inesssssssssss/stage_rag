@@ -4,20 +4,32 @@ import time
 import chromadb
 import ollama
 import re
+import faster_whisper
+import ast
 
 # Initialize the ChromaDB client
 client = chromadb.Client()
 collection = client.create_collection(name="docs", metadata={"hnsw:space": "cosine"})
 
 # Set of example documents to be used for rag
-documents=["The blue block is owned by Bob"]
+documents=[]
 
 # Generate a vision response for the image
+prompt_vlm = """
+Identify and list **all** visible objects **on the table**. Return the result as a valid Python list of strings.
+
+Include small, partially hidden or transparent items (e.g. pens, cups, keys, phones, food, paper, tools, bottles, chargers, etc).
+
+Return only the list, in this format:
+["mug", "silver ring", "blue small pen", ...]
+
+"""
 get_image()
 response = ollama.generate(
     model='llama3.2-vision',
-    prompt= 'You are a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects',
-    images= ['Images/live.png']
+    #prompt= 'You are a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects',
+    prompt = prompt_vlm,
+    images= ['Images/mess_live.png']
     , options={
         "temperature": 0.0,
         "num_predict": 1024
@@ -25,6 +37,13 @@ response = ollama.generate(
 )
 im_desc = response.get("response", "")
 print(f"Image description: {im_desc}")
+match = re.search(r'\[\s*.*?\s*\]', im_desc, re.DOTALL)
+if match:
+    obj_list_str = match.group(0)
+    obj_list = ast.literal_eval(obj_list_str)  #
+    print(f"Extracted object list: {obj_list}")
+else:
+    print("List not found")
 
 # Initialize the task planner
 planner = TaskPlanner(
@@ -47,7 +66,7 @@ response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), fl
 print(f"Response from the model: {response}")
 print("Do you wanna add something ?")
 rep = input("Type no if the plan is correct")
-if rep.lower() != 'no':
+while rep.lower() != 'no':
     documents.append(rep)
 
     # store each document in a vector embedding database
@@ -60,7 +79,7 @@ if rep.lower() != 'no':
             documents=[d]
         )
 
-    docs = get_useful_doc(collection, im_desc)
+    docs = get_useful_doc(collection, im_desc, 0.8)
     print(f"Useful documents for the task: {docs}")
     prompt = get_draft(docs, im_desc)
 
@@ -74,6 +93,8 @@ if rep.lower() != 'no':
     )
     response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)
     print(f"Response from the model after adding: {response}")
+    print("Do you wanna add something ?(Type no if the plan is correct)")
+    rep = input()
 # Generate a plan for a task
 start_time = time.time()
 # We add collection to choose the best information in high_level_prompt

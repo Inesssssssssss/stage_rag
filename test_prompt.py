@@ -1,72 +1,29 @@
-from pyorbbecsdk import *
-import cv2
-import os
+from faster_whisper import WhisperModel
+import time
 
-def list_devices():
-    ctx = Context()
-    device_list = ctx.query_devices()
-    print(f"Nombre de caméras détectées : {device_list.get_count()}")
+model_size = "large-v3"
 
-    for i in range(device_list.get_count()):
-        device = device_list[i]
-        device_info = device.get_device_info()
-        print(f"Caméra {i}: {device_info}")
+# Run on GPU with FP16
+#model = WhisperModel(model_size, device="cuda", compute_type="float16")
 
-    return device_list
+# or run on GPU with INT8
+model = WhisperModel(model_size, device="cuda", compute_type="int8_float16")
 
-def test_device(device):
-    config = Config()
-    pipeline = Pipeline(device)
-    try:
-        profile_list = pipeline.get_stream_profile_list(OBSensorType.COLOR_SENSOR)
-        print("Profils disponibles :")
-        for profile in profile_list:
-            print(profile)
+# or run on CPU with INT8
+#model = WhisperModel(model_size, device="cpu", compute_type="int8")
+start = time.time()
+segments, info = model.transcribe("llm_planner_vlm_llm/audio/No.m4a", beam_size=5, suppress_tokens=[-1, 11, 13])
+end1 = time.time()
+transcribe_t = end1 - start
 
-        try:
-            color_profile = profile_list.get_video_stream_profile(640, 0, OBFormat.RGB, 30)
-        except OBError:
-            color_profile = profile_list.get_default_video_stream_profile()
-            print("Profil par défaut utilisé :", color_profile)
+transcript = ""
+for segment in segments:
+    # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
+    transcript += segment.text
+    print("seg,ents tokens : ", segment.tokens)
 
-        config.enable_stream(color_profile)
-        pipeline.start(config)
+end2 = time.time()
+total_t = end2 - start
 
-        frames = pipeline.wait_for_frames(100)
-        color_frame = frames.get_color_frame()
-        if color_frame is None:
-            print("Pas de frame couleur.")
-            return False
-
-        color_image = frame_to_bgr_image(color_frame)
-        if color_image is None:
-            print("Impossible de convertir en image.")
-            return False
-
-        cv2.imshow("Test Caméra", color_image)
-        print("Appuyez sur une touche pour continuer...")
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        return True
-
-    except Exception as e:
-        print("Erreur avec cette caméra :", e)
-        return False
-    finally:
-        pipeline.stop()
-
-def main():
-    device_list = list_devices()
-    print("\n--- Test des caméras ---")
-    return
-    for i in range(device_list.get_count()):
-        print(f"\n--- Test de la caméra #{i} ---")
-        device = device_list.get_device(i)
-        success = test_device(device)
-        if success:
-            print(f"✅ Caméra #{i} fonctionne.")
-        else:
-            print(f"❌ Caméra #{i} ne donne pas d'image couleur.")
-
-if __name__ == "__main__":
-    main()
+print("Transcription of audio took : %.2fs" % (total_t))
+print("Transcript :", transcript.lstrip(' '))

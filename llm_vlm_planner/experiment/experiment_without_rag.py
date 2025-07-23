@@ -1,6 +1,6 @@
-from llm_planner_vlm_llm.task_planner import TaskPlanner
-from llm_planner_vlm_llm.utils.other import get_useful_doc, get_image, get_draft, get_list_obj
-from llm_planner_vlm_llm.utils.audio import record_audio, getTranscript
+from llm_vlm_planner.task_planner import TaskPlanner
+from llm_vlm_planner.utils.other import get_useful_doc, get_image, get_draft, get_list_obj
+from llm_vlm_planner.utils.audio import record_audio, getTranscript
 import time
 import chromadb
 import ollama
@@ -27,24 +27,21 @@ for i in range(10):
         start_time = time.time()
         response = ollama.generate(
             model='qwen3:4b',
-            prompt=prompt,
-            options={
-                    "temperature": 0.0,
-                    "num_predict": 1024
-                }
+            prompt=prompt
         )
+        print(f"Response from the model: {response.get('response', '')}")
         response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)
-        print(f"Response from the model: {response}")
-        if "box 1" in response.lower():
-            dico_res[obj][1] += 1
-        elif "box 2" in response.lower():
-            dico_res[obj][2] += 1
-        elif "box 3" in response.lower():
-            dico_res[obj][3] += 1
+        
         # Generate a plan for a task
         start_time = time.time()
         # We add collection to choose the best information in high_level_prompt
         result = planner.plan(response, docs)
+        if "box_1" in result[1].lower():
+            dico_res[obj][1] += 1
+        elif "box_2" in result[1].lower():
+            dico_res[obj][2] += 1
+        elif "box_3" in result[1].lower():
+            dico_res[obj][3] += 1
         end_time = time.time()
         print(f"Planning time: {end_time - start_time:.4f} seconds")
 print("Final dictionary of objects: ", dico_res)

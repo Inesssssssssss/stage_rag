@@ -17,18 +17,17 @@ documents=[]
 
 # Generate a vision response for the image
 prompt_vlm = """
-You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects.
-Identify and list **all** visible objects **on the table**. Return the result as a valid Python list of strings.
+    You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms and any qr code board that you see. Only describe the objects on the transparent qr code board.
+    Identify and list **all** visible objects **on the table**. Return the result as a valid Python list of strings.
 
-Return only the list, in this format:
-["mug", "silver ring", "blue small pen", ...]
-
-"""
+    Return only the list, in this format:
+    ["mug", "silver ring", "blue small pen", ...]
+    """
 #get_image()
 response = ollama.generate(
     model='llama3.2-vision',
     prompt = prompt_vlm,
-    images= ['Images/mess_live.png']
+    images= ['Images/live.png']
     , options={
         "temperature": 0.0,
         "num_predict": 1024
@@ -39,7 +38,7 @@ print(f"Image description: {im_desc}")
 match = re.search(r'\[\s*.*?\s*\]', im_desc, re.DOTALL)
 if match:
     obj_list_str = match.group(0)
-    obj_list = ast.literal_eval(obj_list_str)  #
+    obj_list = ast.literal_eval(obj_list_str)
     print(f"Extracted object list: {obj_list}")
 else:
     print("List not found")
@@ -57,8 +56,7 @@ for obj in obj_list:
         model='qwen3:4b',
         prompt=prompt,
         options={
-                "temperature": 0.0,
-                "num_predict": 1024
+                "temperature": 0.0
             }
     )
     response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)
@@ -86,12 +84,12 @@ for obj in obj_list:
         print(f"Useful documents for the task: {docs}")
         prompt = get_draft(docs, obj)
 
+        # ajouter msg pour dire que la rponse precedente etait mauvaise
         response = ollama.generate(
             model='qwen3:4b',
             prompt=prompt,
             options={
-                        "temperature": 0.5,
-                        "num_predict": 1024
+                        "temperature": 0.5
                     }
         )
         response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)

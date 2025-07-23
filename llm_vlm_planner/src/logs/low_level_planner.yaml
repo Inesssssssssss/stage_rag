@@ -1,12 +1,12 @@
-task: "Grasp blue Lego brick  \nPut blue Lego brick in Box 1"
+task: "Grasp screwdriver  \nPut screwdriver in Box 2"
 plan: !!python/tuple
-- Grasp blue Lego brick
-- Put blue Lego brick in Box 1
+- Grasp screwdriver
+- Put screwdriver in Box 2
 outcomes:
-  Grasp blue Lego brick: The blue Lego brick should be in the robot's gripper.
-  Put blue Lego brick in Box 1: The blue Lego brick should be inside Box 1.
+  Grasp screwdriver: The screwdriver should be in the robot's gripper.
+  Put screwdriver in Box 2: The screwdriver should be inside Box 2.
 steps:
-- plan_step: Grasp blue Lego brick
+- plan_step: Grasp screwdriver
   attempts:
   - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
       - A Python-style list with **exactly one** string primitive\n- No explanation,\
@@ -39,29 +39,23 @@ steps:
       - Object names, subparts, directions, and locations must **exactly** match the\
       \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
       - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
-      \ plan:\nYou are executing the following task: Grasp blue Lego brick  \nPut\
-      \ blue Lego brick in Box 1  \nPlan: ('Grasp blue Lego brick', 'Put blue Lego\
-      \ brick in Box 1')  \nExpected outcomes: {'Grasp blue Lego brick': \"The blue\
-      \ Lego brick should be in the robot's gripper.\", 'Put blue Lego brick in Box\
-      \ 1': 'The blue Lego brick should be inside Box 1.'}  \nCurrent step: Grasp\
-      \ blue Lego brick\n\nWhat you must do:\nOutput a single Python-style list with\
-      \ exactly **one** primitive string to solve **only** the current step.\n\nFormatting\
-      \ examples:\nVALID: [\"grasp_object('banana', 'body')\"]  \nINVALID: corrected\
-      \ list: [\"grasp_object('banana', 'body')\"]  \nINVALID: [grasp_object('banana',\
-      \ 'body')]  \nINVALID: [\"grasp_object('banana', 'body')\", \"handover('left')\"\
-      ]\n\nRemember:\n- Only one action per step\n- Only valid objects and arguments\n\
-      - Only the list — no text, no reasoning, no labels\n"
-    reasoning_response: '["grasp_object(''blue_lego_brick'', ''body'')"]'
+      \ plan:\nYou are executing the following task: Grasp screwdriver  \nPut screwdriver\
+      \ in Box 2  \nPlan: ('Grasp screwdriver', 'Put screwdriver in Box 2')  \nExpected\
+      \ outcomes: {'Grasp screwdriver': \"The screwdriver should be in the robot's\
+      \ gripper.\", 'Put screwdriver in Box 2': 'The screwdriver should be inside\
+      \ Box 2.'}  \nCurrent step: Grasp screwdriver\n\nWhat you must do:\nOutput a\
+      \ single Python-style list with exactly **one** primitive string to solve **only**\
+      \ the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["grasp_object(''philipps_screwdriver'', ''handle'')"]'
     primitives:
-    - primitive: grasp_object('blue_lego_brick', 'body')
-      success: false
-      error: Unknown object
-  - chat_entry: Unknown object
-    reasoning_response: '["grasp_object(''block'', ''body'')"]'
-    primitives:
-    - primitive: grasp_object('block', 'body')
+    - primitive: grasp_object('philipps_screwdriver', 'handle')
       success: true
-- plan_step: Put blue Lego brick in Box 1
+- plan_step: Put screwdriver in Box 2
   attempts:
   - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
       - A Python-style list with **exactly one** string primitive\n- No explanation,\
@@ -94,25 +88,25 @@ steps:
       - Object names, subparts, directions, and locations must **exactly** match the\
       \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
       - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
-      \ plan:\nYou are executing the following task: Grasp blue Lego brick  \nPut\
-      \ blue Lego brick in Box 1  \nPlan: ('Grasp blue Lego brick', 'Put blue Lego\
-      \ brick in Box 1')  \nExpected outcomes: {'Grasp blue Lego brick': \"The blue\
-      \ Lego brick should be in the robot's gripper.\", 'Put blue Lego brick in Box\
-      \ 1': 'The blue Lego brick should be inside Box 1.'}  \nCurrent step: Put blue\
-      \ Lego brick in Box 1\n\nWhat you must do:\nOutput a single Python-style list\
-      \ with exactly **one** primitive string to solve **only** the current step.\n\
-      \nFormatting examples:\nVALID: [\"grasp_object('banana', 'body')\"]  \nINVALID:\
-      \ corrected list: [\"grasp_object('banana', 'body')\"]  \nINVALID: [grasp_object('banana',\
-      \ 'body')]  \nINVALID: [\"grasp_object('banana', 'body')\", \"handover('left')\"\
-      ]\n\nRemember:\n- Only one action per step\n- Only valid objects and arguments\n\
-      - Only the list — no text, no reasoning, no labels\n"
-    reasoning_response: '["drop_above(''box_1'')"]'
+      \ plan:\nYou are executing the following task: Grasp screwdriver  \nPut screwdriver\
+      \ in Box 2  \nPlan: ('Grasp screwdriver', 'Put screwdriver in Box 2')  \nExpected\
+      \ outcomes: {'Grasp screwdriver': \"The screwdriver should be in the robot's\
+      \ gripper.\", 'Put screwdriver in Box 2': 'The screwdriver should be inside\
+      \ Box 2.'}  \nCurrent step: Put screwdriver in Box 2\n\nWhat you must do:\n\
+      Output a single Python-style list with exactly **one** primitive string to solve\
+      \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
+      \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
+      ]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
+      \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
+      - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
+      \ no labels\n"
+    reasoning_response: '["drop_above(''box_2'')"]'
     primitives:
-    - primitive: drop_above('box_1')
+    - primitive: drop_above('box_2')
       success: true
 primitives:
-- grasp_object('block', 'body')
-- drop_above('box_1')
+- grasp_object('philipps_screwdriver', 'handle')
+- drop_above('box_2')
 prompt: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n- A\
   \ Python-style list with **exactly one** string primitive\n- No explanation, no\
   \ label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown, no blank\
@@ -142,14 +136,14 @@ prompt: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n
   \ argument rules:\n- Object names, subparts, directions, and locations must **exactly**\
   \ match the values provided.\n- Do not use synonyms, abbreviations, or undefined\
   \ values.\n- Any primitive with an invalid argument will be rejected.\n\nThe task\
-  \ and the plan:\nYou are executing the following task: Grasp blue Lego brick  \n\
-  Put blue Lego brick in Box 1  \nPlan: ('Grasp blue Lego brick', 'Put blue Lego brick\
-  \ in Box 1')  \nExpected outcomes: {'Grasp blue Lego brick': \"The blue Lego brick\
-  \ should be in the robot's gripper.\", 'Put blue Lego brick in Box 1': 'The blue\
-  \ Lego brick should be inside Box 1.'}  \nCurrent step: STEP_PLACEHOLDER\n\nWhat\
-  \ you must do:\nOutput a single Python-style list with exactly **one** primitive\
-  \ string to solve **only** the current step.\n\nFormatting examples:\nVALID: [\"\
-  grasp_object('banana', 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana',\
-  \ 'body')\"]  \nINVALID: [grasp_object('banana', 'body')]  \nINVALID: [\"grasp_object('banana',\
-  \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n- Only\
-  \ valid objects and arguments\n- Only the list — no text, no reasoning, no labels\n"
+  \ and the plan:\nYou are executing the following task: Grasp screwdriver  \nPut\
+  \ screwdriver in Box 2  \nPlan: ('Grasp screwdriver', 'Put screwdriver in Box 2')\
+  \  \nExpected outcomes: {'Grasp screwdriver': \"The screwdriver should be in the\
+  \ robot's gripper.\", 'Put screwdriver in Box 2': 'The screwdriver should be inside\
+  \ Box 2.'}  \nCurrent step: STEP_PLACEHOLDER\n\nWhat you must do:\nOutput a single\
+  \ Python-style list with exactly **one** primitive string to solve **only** the\
+  \ current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana', 'body')\"\
+  ]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"]  \nINVALID: [grasp_object('banana',\
+  \ 'body')]  \nINVALID: [\"grasp_object('banana', 'body')\", \"handover('left')\"\
+  ]\n\nRemember:\n- Only one action per step\n- Only valid objects and arguments\n\
+  - Only the list — no text, no reasoning, no labels\n"

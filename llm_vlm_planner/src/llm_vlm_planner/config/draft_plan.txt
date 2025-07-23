@@ -27,5 +27,3 @@ Do not describe how to move or grasp — keep it abstract and human-level.
 Do not include explanations or justifications — only output the sequence of actions.
 
 Keep it concise, logical, and clear.
-
-/nothink

@@ -10,33 +10,31 @@ import ast
 
 def get_list_obj(model="llama3.2-vision"):
     prompt_vlm = """
-    You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects.
+    You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms and any qr code board that you see. Only describe the objects.
     Identify and list **all** visible objects **on the table**. Return the result as a valid Python list of strings.
 
     Return only the list, in this format:
     ["mug", "silver ring", "blue small pen", ...]
     """
     #get_image()
-    response = ollama.generate(
-        model='llama3.2-vision',
-        #prompt= 'You are a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects',
-        prompt = prompt_vlm,
-        images= ['Images/mess_live.png']
-        , options={
-            "temperature": 0.0,
-            "num_predict": 1024
-        }
-    )
-    im_desc = response.get("response", "")
-    print(f"Image description: {im_desc}")
-    match = re.search(r'\[\s*.*?\s*\]', im_desc, re.DOTALL)
-    if match:
-        obj_list_str = match.group(0)
-        obj_list = ast.literal_eval(obj_list_str)
-        print(f"Extracted object list: {obj_list}")
-        return obj_list
-    else:
-        print("List not found")
+    match = None
+    while not match:
+        response = ollama.generate(
+            model='llama3.2-vision',
+            prompt = prompt_vlm,
+            images= ['Images/mess_live.png']
+            , options={
+                "temperature": 0.0,
+                "num_predict": 1024
+            }
+        )
+        im_desc = response.get("response", "")
+        print(f"Image description: {im_desc}")
+        match = re.search(r'\[\s*.*?\s*\]', im_desc, re.DOTALL)
+    obj_list_str = match.group(0)
+    obj_list = ast.literal_eval(obj_list_str)
+    print(f"Extracted object list: {obj_list}")
+    return obj_list
 
 def get_useful_doc(collection,task,threshold=0.5):
     """

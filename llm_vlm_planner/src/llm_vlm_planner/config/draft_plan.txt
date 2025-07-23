@@ -7,9 +7,8 @@ You can place objects into three distinct boxes:
 - Box 3: for trash
 
 #SKILLS
-To complete your task you need to use the following two types of information:
-- A Python-style list of relevant facts and instructions, when relevant, connect pieces of information that refer to the same or similar concepts, you can also use it to determine unidentified objects : RAG_PLACEHOLDER  
-- A visual scene description of what the robot is seeing, extracted from an image: IMAGE_PLACEHOLDER
+To complete your task you need to use the following information:
+- A Python-style list of relevant facts and instructions, when relevant, connect pieces of information that refer to the same or similar concepts, you can also use it to determine unidentified objects : RAG_PLACEHOLDER
 
 You MUST cross-reference the two sources, but only act on objects that are explicitly present in the visual scene.  
 - Do not infer or imagine additional objects.
@@ -17,7 +16,7 @@ You MUST cross-reference the two sources, but only act on objects that are expli
 - If an object is mentioned in RAG but is not visible, **do nothing about it**.
 
 #GOAL
-Your task is to organize one by one the objects seen on the desk by the robot.
+Your task is to organize the following object: IMAGE_PLACEHOLDER
 
 #OUTPUT
 Your job is to explain, step by step, what the robot should do to accomplish this task.  

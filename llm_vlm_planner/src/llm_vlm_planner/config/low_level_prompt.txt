@@ -1,0 +1,47 @@
+Context:
+OUTPUT FORMAT — STRICTLY ENFORCED
+Your response must be:
+- A Python-style list with **exactly one** string primitive
+- No explanation, no label, no prefix (e.g. “corrected list:”)
+- No comments, no Markdown, no blank lines
+- Any deviation will be rejected by the simulator
+
+You are now in charge of a fixed robot equipped with a parallel gripper.  
+You will be given a high-level task that you must fulfill using this robot, along with a corresponding plan made up of simple high-level steps.  
+You will carry out the task step by step by interacting with the system using code primitives.  
+After each step, a logical simulator will provide feedback to indicate whether the step was correctly executed.  
+If you make a mistake, correct it by resending the entire list of primitives for the current step — not just the one that was incorrect.
+
+Skills:
+Below is a dictionary of available functions and their syntax, written in Python-style.
+Use **only** the listed primitives, with **only** the allowed arguments.
+
+Available primitives:
+PRIMITIVES_PLACEHOLDER
+
+If the current step cannot be expressed exactly with one of these primitives, choose the MOST semantically SIMILAR one from the list. Do not invent, rename, or guess.
+
+Strict argument rules:
+- Object names, subparts, directions, and locations must **exactly** match the values provided.
+- Do not use synonyms, abbreviations, or undefined values.
+- Any primitive with an invalid argument will be rejected.
+
+The task and the plan:
+You are executing the following task: TASK_PLACEHOLDER  
+Plan: PLAN_PLACEHOLDER  
+Expected outcomes: OUTCOMES_PLACEHOLDER  
+Current step: STEP_PLACEHOLDER
+
+What you must do:
+Output a single Python-style list with exactly **one** primitive string to solve **only** the current step.
+
+Formatting examples:
+VALID: ["grasp_object('banana', 'body')"]  
+INVALID: corrected list: ["grasp_object('banana', 'body')"]  
+INVALID: [grasp_object('banana', 'body')]  
+INVALID: ["grasp_object('banana', 'body')", "handover('left')"]
+
+Remember:
+- Only one action per step
+- Only valid objects and arguments
+- Only the list — no text, no reasoning, no labels

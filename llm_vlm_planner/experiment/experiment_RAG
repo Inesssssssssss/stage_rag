@@ -15,6 +15,8 @@ collection = client.create_collection(name="docs", metadata={"hnsw:space": "cosi
 # Set of example documents to be used for rag
 documents=[]
 
+documents.append(rep)
+
 # Generate a vision response for the image
 prompt_vlm = """
     You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms and any qr code board that you see. Only describe the objects near the transparent qr code board. Do not ignore any tools or items placed near the qr code board.
@@ -65,17 +67,6 @@ for obj in obj_list:
     rep = input()
     #pritnt(f"User answer: {rep}")
     while rep.lower() != 'no':
-        documents.append(rep)
-
-        # store each document in a vector embedding database
-        for i, d in enumerate(documents):
-            emb = ollama.embed(model="mxbai-embed-large", input=d)
-            embeddings = emb["embeddings"]
-            collection.add(
-                ids=[str(i)],
-                embeddings=embeddings,
-                documents=[d]
-            )
 
         docs = get_useful_doc(collection, obj, 0.5)
         print(f"Useful documents for the task: {docs}")

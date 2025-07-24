@@ -1,29 +1,20 @@
-from faster_whisper import WhisperModel
-import time
+import ollama
 
-model_size = "large-v3"
+# Generate a vision response for the image
+prompt_vlm = """
+    You're a robot assistant. Please look at the image and describe each object on the table. Ignore the table and any robot arms and any qr code board that you see. Do not ignore any tools or items placed near the qr code board.
+    Return the result as a valid Python list of strings. 
 
-# Run on GPU with FP16
-#model = WhisperModel(model_size, device="cuda", compute_type="float16")
+    """
 
-# or run on GPU with INT8
-model = WhisperModel(model_size, device="cuda", compute_type="int8_float16")
-
-# or run on CPU with INT8
-#model = WhisperModel(model_size, device="cpu", compute_type="int8")
-start = time.time()
-segments, info = model.transcribe("llm_planner_vlm_llm/audio/No.m4a", beam_size=5, suppress_tokens=[-1, 11, 13])
-end1 = time.time()
-transcribe_t = end1 - start
-
-transcript = ""
-for segment in segments:
-    # print("[%.2fs -> %.2fs] %s" % (segment.start, segment.end, segment.text))
-    transcript += segment.text
-    print("seg,ents tokens : ", segment.tokens)
-
-end2 = time.time()
-total_t = end2 - start
-
-print("Transcription of audio took : %.2fs" % (total_t))
-print("Transcript :", transcript.lstrip(' '))
+response = ollama.generate(
+    model='qwen2.5vl',
+    prompt = prompt_vlm,
+    images= ['/home/ines/RAG/llm_vlm_planner/Images/live.png']
+    , options={
+        "temperature": 0.0,
+        "num_predict": 1024
+    }
+)
+im_desc = response.get("response", "")
+print(f"Image description: {im_desc}")

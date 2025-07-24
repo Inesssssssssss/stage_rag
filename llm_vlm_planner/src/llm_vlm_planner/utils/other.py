@@ -62,7 +62,7 @@ def get_image():
     config = Config()
     ctx = Context()
     dev_list = ctx.query_devices()
-    pipeline = Pipeline(dev_list[0])
+    pipeline = Pipeline(dev_list[1])
     device = pipeline.get_device()
     try:
         profile_list = pipeline.get_stream_profile_list(OBSensorType.COLOR_SENSOR)

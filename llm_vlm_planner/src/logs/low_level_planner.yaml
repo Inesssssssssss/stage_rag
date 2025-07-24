@@ -1,10 +1,10 @@
-task: Place the screwdriver into Box 1.
+task: Place the screwdriver into Box 2.
 plan: !!python/tuple
 - Grasp screwdriver
-- Place screwdriver in Box 1
+- Place screwdriver in Box 2
 outcomes:
   Grasp screwdriver: The screwdriver should be in the robot's gripper.
-  Place screwdriver in Box 1: The screwdriver should be inside Box 1.
+  Place screwdriver in Box 2: The screwdriver should be inside Box 2.
 steps:
 - plan_step: Grasp screwdriver
   attempts:
@@ -40,10 +40,10 @@ steps:
       \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
       - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
       \ plan:\nYou are executing the following task: Place the screwdriver into Box\
-      \ 1.  \nPlan: ('Grasp screwdriver', 'Place screwdriver in Box 1')  \nExpected\
+      \ 2.  \nPlan: ('Grasp screwdriver', 'Place screwdriver in Box 2')  \nExpected\
       \ outcomes: {'Grasp screwdriver': \"The screwdriver should be in the robot's\
-      \ gripper.\", 'Place screwdriver in Box 1': 'The screwdriver should be inside\
-      \ Box 1.'}  \nCurrent step: Grasp screwdriver\n\nWhat you must do:\nOutput a\
+      \ gripper.\", 'Place screwdriver in Box 2': 'The screwdriver should be inside\
+      \ Box 2.'}  \nCurrent step: Grasp screwdriver\n\nWhat you must do:\nOutput a\
       \ single Python-style list with exactly **one** primitive string to solve **only**\
       \ the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
       \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
@@ -55,7 +55,7 @@ steps:
     primitives:
     - primitive: grasp_object('philipps_screwdriver', 'handle')
       success: true
-- plan_step: Place screwdriver in Box 1
+- plan_step: Place screwdriver in Box 2
   attempts:
   - chat_entry: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n\
       - A Python-style list with **exactly one** string primitive\n- No explanation,\
@@ -89,10 +89,10 @@ steps:
       \ values provided.\n- Do not use synonyms, abbreviations, or undefined values.\n\
       - Any primitive with an invalid argument will be rejected.\n\nThe task and the\
       \ plan:\nYou are executing the following task: Place the screwdriver into Box\
-      \ 1.  \nPlan: ('Grasp screwdriver', 'Place screwdriver in Box 1')  \nExpected\
+      \ 2.  \nPlan: ('Grasp screwdriver', 'Place screwdriver in Box 2')  \nExpected\
       \ outcomes: {'Grasp screwdriver': \"The screwdriver should be in the robot's\
-      \ gripper.\", 'Place screwdriver in Box 1': 'The screwdriver should be inside\
-      \ Box 1.'}  \nCurrent step: Place screwdriver in Box 1\n\nWhat you must do:\n\
+      \ gripper.\", 'Place screwdriver in Box 2': 'The screwdriver should be inside\
+      \ Box 2.'}  \nCurrent step: Place screwdriver in Box 2\n\nWhat you must do:\n\
       Output a single Python-style list with exactly **one** primitive string to solve\
       \ **only** the current step.\n\nFormatting examples:\nVALID: [\"grasp_object('banana',\
       \ 'body')\"]  \nINVALID: corrected list: [\"grasp_object('banana', 'body')\"\
@@ -100,13 +100,13 @@ steps:
       \ 'body')\", \"handover('left')\"]\n\nRemember:\n- Only one action per step\n\
       - Only valid objects and arguments\n- Only the list — no text, no reasoning,\
       \ no labels\n"
-    reasoning_response: '["drop_above(''box_1'')"]'
+    reasoning_response: '["drop_above(''box_2'')"]'
     primitives:
-    - primitive: drop_above('box_1')
+    - primitive: drop_above('box_2')
       success: true
 primitives:
 - grasp_object('philipps_screwdriver', 'handle')
-- drop_above('box_1')
+- drop_above('box_2')
 prompt: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n- A\
   \ Python-style list with **exactly one** string primitive\n- No explanation, no\
   \ label, no prefix (e.g. “corrected list:”)\n- No comments, no Markdown, no blank\
@@ -137,9 +137,9 @@ prompt: "Context:\nOUTPUT FORMAT — STRICTLY ENFORCED\nYour response must be:\n
   \ match the values provided.\n- Do not use synonyms, abbreviations, or undefined\
   \ values.\n- Any primitive with an invalid argument will be rejected.\n\nThe task\
   \ and the plan:\nYou are executing the following task: Place the screwdriver into\
-  \ Box 1.  \nPlan: ('Grasp screwdriver', 'Place screwdriver in Box 1')  \nExpected\
+  \ Box 2.  \nPlan: ('Grasp screwdriver', 'Place screwdriver in Box 2')  \nExpected\
   \ outcomes: {'Grasp screwdriver': \"The screwdriver should be in the robot's gripper.\"\
-  , 'Place screwdriver in Box 1': 'The screwdriver should be inside Box 1.'}  \nCurrent\
+  , 'Place screwdriver in Box 2': 'The screwdriver should be inside Box 2.'}  \nCurrent\
   \ step: STEP_PLACEHOLDER\n\nWhat you must do:\nOutput a single Python-style list\
   \ with exactly **one** primitive string to solve **only** the current step.\n\n\
   Formatting examples:\nVALID: [\"grasp_object('banana', 'body')\"]  \nINVALID: corrected\

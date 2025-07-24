@@ -1,0 +1,15 @@
+Temperatue Qwen3 = 0.8, run = 10
+    Experiment with simple sentences (this object should be in this box):
+        Object: scissors, Failures: 1, Successes: 9, Percentage: 90.00%
+        Object: red cup, Failures: 0, Successes: 10, Percentage: 100.00%
+        Object: banana, Failures: 1, Successes: 9, Percentage: 90.00%
+        Object: screwdriver, Failures: 0, Successes: 10, Percentage: 100.00%
+
+    Experiment with non simple sentences (this object is mine -> box 1):
+        Object: scissors, Failures: 2, Successes: 8, Percentage: 80.00% -> one fail from low level, high level correct
+        Object: red cup, Failures: 0, Successes: 10, Percentage: 100.00%
+        Object: banana, Failures: 1, Successes: 9, Percentage: 90.00%
+        Object: screwdriver, Failures: 0, Successes: 10, Percentage: 100.00%
+
+⤷ Once the sentence is added, the llm succeed to always follow the informations added by the user, before that he find the best box for every simple 
+   object if their use is explicit. (example : the screwdriver is always put in the tools box)

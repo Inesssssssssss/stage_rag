@@ -58,6 +58,7 @@ for obj in obj_list:
     )
     response = re.sub(r'<think>.*?</think>\s*', '', response.get('response', ''), flags=re.DOTALL)
     print(f"Response from the model: {response}")
+
     print("Do you wanna add something ?(Type no if the plan is correct)")
     #file = record_audio()
     file = "audio/No.m4a"

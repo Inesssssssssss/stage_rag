@@ -1,5 +1,4 @@
 import ollama
-import chromadb
 import cv2
 from pyorbbecsdk import *
 from typing import Union, Any, Optional
@@ -154,7 +153,7 @@ def get_draft(rag : str, image) -> str:
     
     rep = os.path.abspath(os.path.join(os.path.dirname(__file__), "../config"))
     os.makedirs(rep, exist_ok=True)
-    draft_file = os.path.join(rep, "draft_plan.txt")
+    draft_file = os.path.join(rep, "test_draft.txt")
     
     with open(draft_file, 'r') as f:
         file = f.read()

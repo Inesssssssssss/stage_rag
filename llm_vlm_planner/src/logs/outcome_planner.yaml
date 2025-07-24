@@ -1,10 +1,10 @@
-task: Place the screwdriver into Box 1.
+task: Place the screwdriver into Box 2.
 plan: !!python/tuple
 - Grasp screwdriver
-- Place screwdriver in Box 1
+- Place screwdriver in Box 2
 prompt: "You are in charge of executing the following task: Place the screwdriver\
-  \ into Box 1.. The plan consists of the following steps: ('Grasp screwdriver', 'Place\
-  \ screwdriver in Box 1').\nEach of the steps of the plan will be executed with a\
+  \ into Box 2.. The plan consists of the following steps: ('Grasp screwdriver', 'Place\
+  \ screwdriver in Box 2').\nEach of the steps of the plan will be executed with a\
   \ fixed robot equipped with an arm ending in a gripper. \nFor each step of the plan,\
   \ I need you to give the expected outcome of the actions involved in the step, in\
   \ physical and visual terms.\nThis should consist of one or two short, simple sentences\
@@ -34,7 +34,7 @@ prompt: "You are in charge of executing the following task: Place the screwdrive
   \ outcomes and no other text.\n\nKeep your reasoning short and concise, and avoid\
   \ unnecessary details so that your output is easy to read.\n/nothink"
 reasoning_response: "{'Grasp screwdriver': 'The screwdriver should be in the robot\\\
-  's gripper.', \n'Place screwdriver in Box 1': 'The screwdriver should be inside\
-  \ Box 1.'}"
+  's gripper.', \n'Place screwdriver in Box 2': 'The screwdriver should be inside\
+  \ Box 2.'}"
 response: "{'Grasp screwdriver': 'The screwdriver should be in the robot\\'s gripper.',\
-  \ \n'Place screwdriver in Box 1': 'The screwdriver should be inside Box 1.'}"
+  \ \n'Place screwdriver in Box 2': 'The screwdriver should be inside Box 2.'}"

@@ -8,6 +8,9 @@ import re
 import ast
 
 def get_list_obj(model="llama3.2-vision"):
+    """
+        Get a list of objects from the image using VLM.
+    """
     prompt_vlm = """
     You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms and any qr code board that you see. Only describe the objects.
     Identify and list **all** visible objects **on the table**. Return the result as a valid Python list of strings.
@@ -139,7 +142,7 @@ def frame_to_bgr_image(frame: VideoFrame) -> Union[Optional[np.array], Any]:
         return None
     return image
 
-def get_draft(rag : str, image) -> str:
+def get_draft(rag : str, image, vlm=False) -> str:
     """
     Generate a draft plan using the RAG model.
     
@@ -153,7 +156,10 @@ def get_draft(rag : str, image) -> str:
     
     rep = os.path.abspath(os.path.join(os.path.dirname(__file__), "../config"))
     os.makedirs(rep, exist_ok=True)
-    draft_file = os.path.join(rep, "test_draft.txt")
+    if vlm:
+        draft_file = os.path.join(rep, "test_draft.txt")
+    else:
+        draft_file = os.path.join(rep, "draft_plan.txt")
     
     with open(draft_file, 'r') as f:
         file = f.read()

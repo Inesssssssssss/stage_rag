@@ -1,0 +1,476 @@
+===== New Experiment 1 =====
+Object: scissors
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the scissors are mine
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the red cup is broken
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+RL result : all actions are correct
+
+
+===== New Experiment 2 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver is broken
+
+RL result : Screwdriver was dropped too soon right after it was picked
+
+
+===== New Experiment 3 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: the scissors are unusable
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver has to be thrown away
+
+RL result : Didn't grip the screwdriver well but the movement was correct. The scissors hits the outside of the trash but end up in it.
+
+
+===== New Experiment 4 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: the scissors should be in the trash
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (2):
+      1: the screwdriver handle came off
+      2: the screwdriver should be in box 3
+
+RL results : Box were moved by the robots, the mug wasn't gripped well and didn't end up in any box.
+
+
+===== New Experiment 5 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: i want to throw away the scissors
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the banana is rotten
+
+Object: screwdriver
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+RL result : scissors were dropped on the edge of the trash (trash was probably moved by previous experiments). The robot dropped the screwdriver right after picking it and stop in that position.
+
+
+===== New Experiment 6 =====
+Object: scissors
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the scissors are mine
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver is a personal object
+
+RL result : Same error than the previous experiment with screwdriver
+
+
+===== New Experiment 7 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the blades of the scissor aren't sharp anymore
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver is owned by someone
+
+RL result : Screwdriver wasn't gripped well.
+
+===== New Experiment 8 =====
+Object: scissors
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the scissors are owned by Bob
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the mug is broken
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: the tool to screw is broken
+
+RL result : all actions are correct
+
+
+===== New Experiment 9 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: this scissors can't be used again
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: screwdriver shouldn't been put with tools
+
+RL result : all actions are correct
+
+
+===== New Experiment 10 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (2):
+      1: the screwdriver handle came off
+      2: screwdriver handle is broken
+
+
+===== New Experiment 11 =====
+Object: scissors
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (2):
+      1: scissors are not a shared tool
+      2: we still can use the scissors
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the red cup is shattered
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: there is only the peel of the banana left
+
+Object: screwdriver
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+RL result : all actions are correct
+
+===== New Experiment 12 =====
+Object: scissors
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: scissors are mine
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the banana was eaten
+
+Object: screwdriver
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+RL result : all actions are correct
+
+===== New Experiment 13 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver is broken
+
+RL result : the gripper opens before it was above the box 3 for the screwdriver
+
+
+===== New Experiment 14 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_3')
+  - Corrections needed (1):
+      1: the scissors are broken
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3')
+  - Corrections needed (1):
+      1: the screwdriver is broken
+
+RL result : the robots hits the plexiglass while trying to grab the screwdriver and stopped
+
+
+===== New Experiment 15 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (2):
+      1: the mug is shattered
+      2: the cup is shattered
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the banana is rotten
+
+Object: screwdriver
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver is mine
+
+RL result : all actions are correct
+
+===== New Experiment 16 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (3):
+      1: the mug is broken
+      2: the red mug is broken
+      3: the red cup is broken
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+RL result : all actions are correct
+
+
+===== New Experiment 17 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the banana is not good anymore
+
+Object: screwdriver
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: the screwdriver is owned by Bob
+
+RL result : all actions are correct
+
+===== New Experiment 18 =====
+Object: scissors
+  - True box: 3
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: banana
+  - True box: 1
+  - Final plan: drop_above('box_1')
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_2')
+
+RL result : the box was pushed by the mug but all objects were in the correct box
+
+
+===== New Experiment 19 =====
+Object: scissors
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the red cup is broken
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the banana is rotten
+
+Object: screwdriver
+  - True box: 2
+  - Final plan: drop_above('box_2')
+
+RL result : all actions are correct
+
+===== New Experiment 20 =====
+Object: scissors
+  - True box: 1
+  - Final plan: drop_above('box_1') previous was 2
+  - Corrections needed (1):
+      1: scissors are mine
+
+Object: red cup
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (2):
+      1: the mug is broken
+      2: the red cup is broken
+
+Object: banana
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 1
+  - Corrections needed (1):
+      1: the fruit is rotten
+
+Object: screwdriver
+  - True box: 3
+  - Final plan: drop_above('box_3') previous was 2
+  - Corrections needed (2):
+      1: the scrdriver is unusable
+      2: the screwdriver is unusable
+
+RL result : all actions are correct

@@ -1,0 +1,85 @@
+2025-07-28 12:26:25,135 - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-28 12:26:28,161 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:26:28,161 - INFO - Extracted object list: ['scissors', 'red cup', 'banana', 'screwdriver']
+2025-07-28 12:26:28,164 - INFO - HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2025-07-28 12:26:28,585 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/pull "HTTP/1.1 200 OK"
+2025-07-28 12:26:30,361 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:26:30,366 - INFO - Object: scissors, True box: 3
+2025-07-28 12:26:31,151 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:26:31,154 - INFO - Documents for scissors: []
+2025-07-28 12:26:34,048 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:26:34,049 - INFO - Ollama response for scissors: Place the scissors into Box 2.
+2025-07-28 12:26:36,357 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:26:36,801 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:26:37,045 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:26:37,171 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:26:37,179 - INFO - Initial plan result for scissors: drop_above('box_2')
+2025-07-28 12:26:37,179 - WARNING - Wrong box for scissors. Expected: 3, Got: drop_above('box_2')
+2025-07-28 12:27:08,588 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2025-07-28 12:27:08,609 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:27:08,611 - INFO - New documents after correction for scissors: ['The scissors are broken']
+2025-07-28 12:27:11,633 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:11,634 - INFO - Corrected Ollama response for scissors: Place the scissors in Box 3.
+2025-07-28 12:27:13,970 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:14,406 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:14,653 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:14,781 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:14,788 - INFO - Corrected plan result for scissors: drop_above('box_3')
+2025-07-28 12:27:14,788 - INFO - Planning time for scissors: 43.6340 seconds
+2025-07-28 12:27:14,789 - INFO - Object: red cup, True box: 1
+2025-07-28 12:27:14,807 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:27:14,808 - INFO - Documents for red cup: []
+2025-07-28 12:27:18,139 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:18,140 - INFO - Ollama response for red cup: Place the red cup into Box 1.
+2025-07-28 12:27:20,455 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:20,924 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:21,176 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:21,308 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:21,450 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:21,576 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:21,584 - INFO - Initial plan result for red cup: drop_above('box_1')
+2025-07-28 12:27:21,584 - INFO - Planning time for red cup: 6.7751 seconds
+2025-07-28 12:27:21,584 - INFO - Object: banana, True box: 3
+2025-07-28 12:27:21,598 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:27:21,601 - INFO - Documents for banana: []
+2025-07-28 12:27:26,027 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:26,029 - INFO - Ollama response for banana: Place the banana into Box 1.
+2025-07-28 12:27:28,342 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:28,778 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:29,021 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:29,148 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:29,155 - INFO - Initial plan result for banana: drop_above('box_1')
+2025-07-28 12:27:29,156 - WARNING - Wrong box for banana. Expected: 3, Got: drop_above('box_1')
+2025-07-28 12:27:37,744 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2025-07-28 12:27:37,763 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:27:37,765 - INFO - New documents after correction for banana: ['the banana is rotten']
+2025-07-28 12:27:41,310 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:41,311 - INFO - Corrected Ollama response for banana: place banana in box 3
+2025-07-28 12:27:43,642 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:44,072 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:44,312 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:44,444 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:44,453 - INFO - Corrected plan result for banana: drop_above('box_3')
+2025-07-28 12:27:44,453 - INFO - Planning time for banana: 22.8513 seconds
+2025-07-28 12:27:44,453 - INFO - Object: screwdriver, True box: 3
+2025-07-28 12:27:44,466 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:27:44,468 - INFO - Documents for screwdriver: ['The scissors are broken']
+2025-07-28 12:27:46,906 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:46,907 - INFO - Ollama response for screwdriver: Place the screwdriver into Box 2.
+2025-07-28 12:27:49,225 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:49,701 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:27:49,986 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:50,111 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:27:50,119 - INFO - Initial plan result for screwdriver: drop_above('box_2')
+2025-07-28 12:27:50,119 - WARNING - Wrong box for screwdriver. Expected: 3, Got: drop_above('box_2')
+2025-07-28 12:28:25,673 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embed "HTTP/1.1 200 OK"
+2025-07-28 12:28:25,690 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/embeddings "HTTP/1.1 200 OK"
+2025-07-28 12:28:25,692 - INFO - New documents after correction for screwdriver: ['the screwdriver is unusable', 'The scissors are broken']
+2025-07-28 12:28:29,013 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:28:29,013 - INFO - Corrected Ollama response for screwdriver: Place the screwdriver in Box 3 (trash).
+2025-07-28 12:28:31,351 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:28:31,837 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-07-28 12:28:32,119 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:28:32,248 - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2025-07-28 12:28:32,256 - INFO - Corrected plan result for screwdriver: drop_above('box_3')
+2025-07-28 12:28:32,256 - INFO - Planning time for screwdriver: 47.7881 seconds

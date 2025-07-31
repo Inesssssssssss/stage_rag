@@ -405,7 +405,7 @@ RL result : all actions are correct
 
 ===== New Experiment 18 =====
 Object: scissors
-  - True box: 3
+  - True box: 2
   - Final plan: drop_above('box_2')
 
 Object: red cup
@@ -417,7 +417,7 @@ Object: banana
   - Final plan: drop_above('box_1')
 
 Object: screwdriver
-  - True box: 3
+  - True box: 2
   - Final plan: drop_above('box_2')
 
 RL result : the box was pushed by the mug but all objects were in the correct box

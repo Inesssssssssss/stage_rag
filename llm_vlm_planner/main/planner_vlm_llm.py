@@ -1,18 +1,21 @@
 from llm_vlm_planner.task_planner import TaskPlanner
 from llm_vlm_planner.utils.other import get_useful_doc, get_image, get_draft
 from llm_vlm_planner.utils.audio import record_audio, getTranscript
+
 import time
 import chromadb
 import ollama
 import re
 import faster_whisper
 import ast
+import os
 
 def describe_image(image_path, prompt_vlm):
+    abs_image_path = os.path.abspath(image_path)
     response = ollama.generate(
         model='qwen2.5vl',
         prompt=prompt_vlm,
-        images=[image_path],
+        images=[abs_image_path],
         options={
             "temperature": 0.0,
             "num_predict": 1024
@@ -87,7 +90,9 @@ def main():
     You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms and any qr code board that you see. Only describe the objects near the transparent qr code board. Do not ignore any tools or items placed near the qr code board.
     Identify and list all visible objects **on the table**. Return the result as a valid Python list of strings.
     """
-    image_path = 'Images/live.png'
+    # Always resolve image path relative to this script's directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(script_dir, '..', 'Images', 'live.png')
     obj_list = describe_image(image_path, prompt_vlm)
 
     planner = TaskPlanner(

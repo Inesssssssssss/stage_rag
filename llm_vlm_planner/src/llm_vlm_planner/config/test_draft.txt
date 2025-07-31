@@ -22,9 +22,12 @@ Guidelines:
   → You MUST attempt to match the VLM description to an object definition in the RAG to infer its identity.
 
 - If the object can be identified based on this reasoning, refer to it by name when describing what to do.  
-- You may and should ask **multiple, detailed, specific** questions about the object if needed.
-- Use the RAG to generate discriminative questions.
-- Even if the VLM gives a descriptive answer, if there is **any doubt**, you must ask follow-up questions.
+
+- If the first answer from the VLM is still too vague to identify the object, ask a follow-up question.  
+  You are allowed to ask more than one question to clarify the identity of the object.
+
+- Use the RAG to generate questions that help distinguish between possible object candidates.
+  For example, if the RAG mentions two similar objects, ask a question that helps choose between them.
 
 # GOAL  
 You must decide what to do with this object: IMAGE_PLACEHOLDER

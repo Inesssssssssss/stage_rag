@@ -1,93 +1,82 @@
 # LLM-VLM Planner - README
 
-Ce dossier propose un pipeline complet pour la planification de tâches robotiques à partir d'une image, en utilisant un modèle de langage (LLM) et un modèle de vision (VLM), avec intégration d'une base de données vectorielle ChromaDB pour le RAG (Retrieval Augmented Generation).
+This folder provides a complete pipeline for robotic task planning from an image, using a language model (LLM) and a vision model (VLM), with integration of a ChromaDB vector database for RAG (Retrieval Augmented Generation).
 
-## Structure du dossier
+## Folder structure
 
-- `src/llm_vlm_planner/` : Code source principal (planificateur, utilitaires, configuration).
-    - `utils/` : Fonctions utilitaires (traitement, embeddings, etc).
-    - `config/` : Prompts et fichiers de configuration.
-    - `planners/` : (optionnel) Implémentations de planificateurs.
-- `main/` : Scripts principaux de lancement.
-    - `planner_vlm_llm.py` : Pipeline principal avec interaction utilisateur (l'utilisateur peut corriger ou enrichir le plan, mais il n'y a pas d'échange direct entre le LLM et le VLM pendant la planification).
-    - `interactive_llm_vlm.py` : Script interactif avancé avec double interaction : l'utilisateur peut corriger/enrichir le plan ET le LLM peut interroger dynamiquement le VLM pour obtenir des précisions sur l'image (LLM <-> VLM <-> User).
-- `experiment/` : Scripts d'expérimentation (batch, ablation, etc).
-- `Images/` : Images d'entrée pour l'analyse visuelle (ex : `device_live.png`).
-- `audio/` : Fichiers audio pour tests ou retours utilisateur.
-- `results/` : Résultats générés (plots, logs, etc).
-    - `plot_*.png` : Graphiques générés automatiquement.
-    - `experiment_results.txt`, `results.txt` : Logs et résultats d'expérience.
+- `src/llm_vlm_planner/`: Main source code (planner, utilities, configuration).
+    - `utils/`: Utility functions (processing, embeddings, etc).
+    - `config/`: Prompts and configuration files.
+    - `planners/`: Planner implementations.
+- `main/`: Main launch scripts.
+    - `planner_vlm_llm.py`: Main pipeline with user interaction (the user can correct or enrich the plan, but there is no direct exchange between the LLM and the VLM during planning).
+    - `interactive_llm_vlm.py`: Advanced interactive script with double interaction: the user can correct/enrich the plan AND the LLM can dynamically query the VLM for details about the image (LLM <-> VLM <-> User).
+- `experiment/`: Experimentation scripts (batch, ablation, etc).
+- `Images/`: Input images for visual analysis (e.g., `device_live.png`).
+- `audio/`: Audio files for tests or user feedback.
+- `results/`: Generated results (plots, logs, etc).
+    - `plot_*.png`: Automatically generated graphs.
+    - `experiment_results.txt`, `results.txt`: Experiment logs and results.
 
-## Fonctionnement général
+## General workflow
 
-1. **Description d'image** :
-   - Le VLM analyse une image et retourne la liste des objets détectés.
-2. **Planification par objet** :
-   - Pour chaque objet détecté, le LLM génère un plan d'action.
-   - L'utilisateur peut affiner le plan en ajoutant des informations, qui sont indexées dans ChromaDB.
-   - Le LLM peut demander des précisions au VLM si besoin ("ask vlm").
-3. **RAG (Retrieval Augmented Generation)** :
-   - Les documents ajoutés sont vectorisés et stockés dans ChromaDB.
-   - Le LLM utilise les documents les plus pertinents pour améliorer la planification.
-4. **Génération du plan final** :
-   - Le planificateur (`TaskPlanner`) synthétise la réponse finale à partir du dernier échange LLM et des documents utiles.
+1. **Image description**:
+   - The VLM analyzes an image and returns the list of detected objects.
+2. **Object-based planning**:
+   - For each detected object, the LLM generates an action plan.
+   - The user can refine the plan by adding information, which is indexed in ChromaDB.
+   - The LLM can ask the VLM for details if needed ("ask vlm").
+3. **RAG (Retrieval Augmented Generation)**:
+   - Added documents are vectorized and stored in ChromaDB.
+   - The LLM uses the most relevant documents to improve planning.
+4. **Final plan generation**:
+   - The planner (`TaskPlanner`) synthesizes the final answer from the last LLM exchange and useful documents.
 
-## Utilisation
+## Usage
 
-### Prérequis
+### Prerequisites
 - Python 3.10+
-- Dépendances :
+- Dependencies:
   - `chromadb`
   - `ollama`
-  - Modules du dossier `llm_vlm_planner`
-- Modèles Ollama nécessaires installés localement (`qwen3:4b`, `qwen2.5vl`, etc.)
+  - Modules from the `llm_vlm_planner` folder
+- Required Ollama models installed locally (`qwen3:4b`, `qwen2.5vl`, etc.)
 
-
-
-### Lancer le script interactif avancé (LLM <-> VLM <-> User)
+### Run the advanced interactive script (LLM <-> VLM <-> User)
 
 ```bash
 python main/interactive_llm_vlm.py
 ```
 
-- Le script affiche la description de l'image et la liste des objets détectés.
-- Pour chaque objet, il propose un plan d'action généré par le LLM.
-- L'utilisateur peut ajouter des informations (taper du texte, puis "no" pour valider le plan).
-- Le LLM peut demander dynamiquement des précisions au VLM (ex : "ask vlm: ...").
-- À la fin, le planificateur génère et affiche le plan final pour chaque objet.
+- The script displays the image description and the list of detected objects.
+- For each object, it proposes an action plan generated by the LLM.
+- The user can add information (type text, then "no" to validate the plan).
+- The LLM can dynamically ask the VLM for details (e.g.: "ask vlm: ...").
+- At the end, the planner generates and displays the final plan for each object.
 
-### Lancer le pipeline interactif simple (User <-> LLM)
+### Run the simple interactive pipeline (User <-> LLM)
 
 ```bash
 python main/planner_vlm_llm.py
 ```
 
-- L'utilisateur peut corriger ou enrichir le plan proposé par le LLM pour chaque objet.
-- Il n'y a pas d'interaction automatique entre le LLM et le VLM pendant la planification (le VLM n'est utilisé que pour la description initiale de l'image).
+- The user can correct or enrich the plan proposed by the LLM for each object.
+- There is no automatic interaction between the LLM and the VLM during planning (the VLM is only used for the initial image description).
 
-### Lancer une expérience batch
+### Run a batch experiment
 
 ```bash
 python experiment/experiment_RAG.py
 ```
-(ou un autre script du dossier `experiment/`)
+(or another script from the `experiment/` folder)
 
-### Analyser les résultats
+### Analyze the results
 
 ```bash
 python results/analyze_log.py
 ```
-Les graphiques seront enregistrés dans `results/`.
+The graphs will be saved in `results/`.
 
-### Personnalisation
-- Pour changer l'image analysée, modifier la variable `image_path` dans les scripts.
-- Pour ajuster les prompts ou la logique, éditer les fonctions dans `src/llm_vlm_planner/utils/` ou les fichiers de configuration dans `config/`.
-
-## Bonnes pratiques
-- Ajouter un fichier `__init__.py` dans chaque dossier Python.
-- Regrouper les résultats générés automatiquement dans `results/plots/` et `results/logs/`.
-- Documenter les nouveaux scripts ou modules dans `docs/` si besoin.
-
----
-
-Pour toute question ou amélioration, modifier ou ouvrir une issue dans le dépôt principal.
+### Customization
+- To change the analyzed image, modify the `image_path` variable in the scripts.
+- To adjust prompts or logic, edit the functions in `src/llm_vlm_planner/utils/` or the configuration files in

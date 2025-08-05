@@ -1,5 +1,4 @@
 import ollama
-import chromadb
 import cv2
 from pyorbbecsdk import *
 from typing import Union, Any, Optional
@@ -9,34 +8,35 @@ import re
 import ast
 
 def get_list_obj(model="llama3.2-vision"):
+    """
+        Get a list of objects from the image using VLM.
+    """
     prompt_vlm = """
-    You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects.
+    You're a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms and any qr code board that you see. Only describe the objects.
     Identify and list **all** visible objects **on the table**. Return the result as a valid Python list of strings.
 
     Return only the list, in this format:
     ["mug", "silver ring", "blue small pen", ...]
     """
     #get_image()
-    response = ollama.generate(
-        model='llama3.2-vision',
-        #prompt= 'You are a robot assistant. Please look at the image and describe each object on the table simply. Ignore the table and any robot arms. Only describe the objects',
-        prompt = prompt_vlm,
-        images= ['Images/mess_live.png']
-        , options={
-            "temperature": 0.0,
-            "num_predict": 1024
-        }
-    )
-    im_desc = response.get("response", "")
-    print(f"Image description: {im_desc}")
-    match = re.search(r'\[\s*.*?\s*\]', im_desc, re.DOTALL)
-    if match:
-        obj_list_str = match.group(0)
-        obj_list = ast.literal_eval(obj_list_str)
-        print(f"Extracted object list: {obj_list}")
-        return obj_list
-    else:
-        print("List not found")
+    match = None
+    while not match:
+        response = ollama.generate(
+            model='llama3.2-vision',
+            prompt = prompt_vlm,
+            images= ['Images/mess_live.png']
+            , options={
+                "temperature": 0.0,
+                "num_predict": 1024
+            }
+        )
+        im_desc = response.get("response", "")
+        print(f"Image description: {im_desc}")
+        match = re.search(r'\[\s*.*?\s*\]', im_desc, re.DOTALL)
+    obj_list_str = match.group(0)
+    obj_list = ast.literal_eval(obj_list_str)
+    print(f"Extracted object list: {obj_list}")
+    return obj_list
 
 def get_useful_doc(collection,task,threshold=0.5):
     """
@@ -64,7 +64,7 @@ def get_image():
     config = Config()
     ctx = Context()
     dev_list = ctx.query_devices()
-    pipeline = Pipeline(dev_list[0])
+    pipeline = Pipeline(dev_list[1])
     device = pipeline.get_device()
     try:
         profile_list = pipeline.get_stream_profile_list(OBSensorType.COLOR_SENSOR)
@@ -142,7 +142,7 @@ def frame_to_bgr_image(frame: VideoFrame) -> Union[Optional[np.array], Any]:
         return None
     return image
 
-def get_draft(rag : str, image) -> str:
+def get_draft(rag : str, image, vlm=False) -> str:
     """
     Generate a draft plan using the RAG model.
     
@@ -156,7 +156,10 @@ def get_draft(rag : str, image) -> str:
     
     rep = os.path.abspath(os.path.join(os.path.dirname(__file__), "../config"))
     os.makedirs(rep, exist_ok=True)
-    draft_file = os.path.join(rep, "draft_plan.txt")
+    if vlm:
+        draft_file = os.path.join(rep, "test_draft.txt")
+    else:
+        draft_file = os.path.join(rep, "draft_plan.txt")
     
     with open(draft_file, 'r') as f:
         file = f.read()

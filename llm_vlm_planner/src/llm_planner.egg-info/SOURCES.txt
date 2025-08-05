@@ -1,4 +1,3 @@
-README.md
 setup.py
 src/llm_planner.egg-info/PKG-INFO
 src/llm_planner.egg-info/SOURCES.txt
